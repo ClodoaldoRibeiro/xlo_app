@@ -9,11 +9,21 @@ class XLOImageSourceSheet extends StatelessWidget {
 
   XLOImageSourceSheet({this.onImageSelected});
 
-  void imageSelected(PickedFile image) async {
-    if (image != null) {
-      File croppedImage = await ImageCropper.cropImage(sourcePath: image.path);
-      onImageSelected(croppedImage);
-    }
+  Future<void> imageSelected(File image) async {
+    final croppedFile = await ImageCropper.cropImage(
+      sourcePath: image.path,
+      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+      androidUiSettings: AndroidUiSettings(
+        toolbarTitle: 'Editar Imagem',
+        toolbarColor: Colors.purple,
+        toolbarWidgetColor: Colors.white,
+      ),
+      iosUiSettings: IOSUiSettings(
+          title: 'Editar Imagem',
+          cancelButtonTitle: 'Cancelar',
+          doneButtonTitle: 'Concluir'),
+    );
+    if (croppedFile != null) onImageSelected(croppedFile);
   }
 
   @override
@@ -39,11 +49,7 @@ class XLOImageSourceSheet extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 GestureDetector(
-                  onTap: () async {
-                    PickedFile image = await ImagePicker()
-                        .getImage(source: ImageSource.camera);
-                    imageSelected(image);
-                  },
+                  onTap: getFromCamera,
                   child: Column(
                     children: [
                       CircleAvatar(
@@ -63,11 +69,7 @@ class XLOImageSourceSheet extends StatelessWidget {
                   ),
                 ),
                 GestureDetector(
-                  onTap: () async {
-                    PickedFile image = await ImagePicker()
-                        .getImage(source: ImageSource.gallery);
-                    imageSelected(image);
-                  },
+                  onTap: getFromGallery,
                   child: Column(
                     children: [
                       CircleAvatar(
@@ -90,5 +92,18 @@ class XLOImageSourceSheet extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  Future<void> getFromCamera() async {
+    final pickedFile = await ImagePicker().getImage(source: ImageSource.camera);
+    if (pickedFile == null) return;
+    imageSelected(File(pickedFile.path));
+  }
+
+  Future<void> getFromGallery() async {
+    final pickedFile =
+        await ImagePicker().getImage(source: ImageSource.gallery);
+    if (pickedFile == null) return;
+    imageSelected(File(pickedFile.path));
   }
 }
