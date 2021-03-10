@@ -13,6 +13,10 @@ abstract class _InserirAnucioStore with Store {
     if (file != null) _imgens.add(file);
   }
 
+  void removeImage(index) {
+    _imgens.removeAt(index);
+  }
+
   @computed
   int get imagesLength => _imgens.length;
 

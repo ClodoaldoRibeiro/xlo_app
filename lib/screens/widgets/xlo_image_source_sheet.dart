@@ -9,23 +9,6 @@ class XLOImageSourceSheet extends StatelessWidget {
 
   XLOImageSourceSheet({this.onImageSelected});
 
-  Future<void> imageSelected(File image) async {
-    final croppedFile = await ImageCropper.cropImage(
-      sourcePath: image.path,
-      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
-      androidUiSettings: AndroidUiSettings(
-        toolbarTitle: 'Editar Imagem',
-        toolbarColor: Colors.purple,
-        toolbarWidgetColor: Colors.white,
-      ),
-      iosUiSettings: IOSUiSettings(
-          title: 'Editar Imagem',
-          cancelButtonTitle: 'Cancelar',
-          doneButtonTitle: 'Concluir'),
-    );
-    if (croppedFile != null) onImageSelected(croppedFile);
-  }
-
   @override
   Widget build(BuildContext context) {
     return BottomSheet(
@@ -105,5 +88,26 @@ class XLOImageSourceSheet extends StatelessWidget {
         await ImagePicker().getImage(source: ImageSource.gallery);
     if (pickedFile == null) return;
     imageSelected(File(pickedFile.path));
+  }
+
+  Future<void> imageSelected(File image) async {
+    print(image.path);
+
+    File croppedFile = await ImageCropper.cropImage(
+      sourcePath: image.path,
+      aspectRatio: CropAspectRatio(ratioX: 1, ratioY: 1),
+      androidUiSettings: AndroidUiSettings(
+        toolbarTitle: 'Editar Imagem',
+        toolbarColor: Colors.purple,
+        toolbarWidgetColor: Colors.white,
+      ),
+      iosUiSettings: IOSUiSettings(
+          title: 'Editar Imagem',
+          cancelButtonTitle: 'Cancelar',
+          doneButtonTitle: 'Concluir'),
+    );
+    print(croppedFile);
+
+    if (croppedFile != null) onImageSelected(croppedFile);
   }
 }

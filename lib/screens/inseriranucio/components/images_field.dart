@@ -4,6 +4,8 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/screens/widgets/xlo_image_source_sheet.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
 
+import 'image_dialog.dart';
+
 class ImagesField extends StatelessWidget {
   /*  A classe recebe um imageStore, ou seja, uam lista de imagens*/
   ImagesField({@required this.anucioStore});
@@ -34,8 +36,8 @@ class ImagesField extends StatelessWidget {
                               context: context,
                               builder: (context) => XLOImageSourceSheet(
                                     onImageSelected: (image) {
-                                      Navigator.of(context).pop();
                                       anucioStore.setImage(image);
+                                      Navigator.of(context).pop();
                                     },
                                   ));
                         },
@@ -54,7 +56,15 @@ class ImagesField extends StatelessWidget {
                     return Padding(
                       padding: const EdgeInsets.fromLTRB(20, 8, 0, 8),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (_) => ImageDialog(
+                              image: anucioStore.getImage(index),
+                              onDelete: () => anucioStore.removeImage(index),
+                            ),
+                          );
+                        },
                         child: CircleAvatar(
                           radius: 44,
                           backgroundColor: Colors.transparent,
