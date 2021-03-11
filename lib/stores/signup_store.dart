@@ -59,10 +59,8 @@ abstract class _SignupStore with Store {
     return _nome == null;
   }
 
-  /**
-   *
-   * Validar dados do E-mail
-   */
+  /// Validar dados do E-mail
+
   @action
   void setEmail(String email) {
     this._email = email;
@@ -87,10 +85,7 @@ abstract class _SignupStore with Store {
       return "E-mail inválido";
   }
 
-  /**
-   *
-   * Validar dados do telefone
-   */
+  /// Validar dados do telefone
   @action
   void setPhone(String phone) {
     this._phone = phone;
@@ -115,10 +110,7 @@ abstract class _SignupStore with Store {
       return "Celular inválido";
   }
 
-  /**
-   *
-   * Validar dados da senha
-   */
+  /// Validar dados da senha
   @action
   void setSenha(String senha) {
     this._senha = senha;
