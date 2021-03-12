@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:xlo_app/models/category.dart';
+import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/stores/category_store.dart';
 
@@ -41,7 +42,41 @@ class CategoryScreen extends StatelessWidget {
                     child: CircularProgressIndicator(),
                   );
                 } else {
-                  return Container(child: Text("Tem itens"),);
+                  final categories = showAll
+                      ? categoryStore.allCategoryList
+                      : categoryStore.categoriesList;
+                  return ListView.separated(
+                    itemCount: categories.length,
+                    separatorBuilder: (_, __) {
+                      return Divider(
+                          height: 0.1, color: AppColors.COR_PALLETA[50]);
+                    },
+                    itemBuilder: (_, index) {
+                      final category = categories[index];
+
+                      return InkWell(
+                        onTap: () {
+                          Navigator.of(context).pop(category);
+                        },
+                        child: Container(
+                          height: 50,
+                          color: category.id == selected?.id
+                              ? AppColors.COR_PRIMARIA
+                              : null,
+                          alignment: Alignment.center,
+                          child: Text(
+                            category.description,
+                            style: TextStyle(
+                              color: Colors.grey[700],
+                              fontWeight: category.id == selected?.id
+                                  ? FontWeight.bold
+                                  : null,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  );
                 }
               },
             )),

@@ -35,8 +35,7 @@ class XLOApp extends StatelessWidget {
           scaffoldBackgroundColor: AppColors.COR_PRIMARIA,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           appBarTheme: AppBarTheme(elevation: 0)),
-      // home: BaseScreen(),
-      home: CategoryScreen(),
+      home: BaseScreen(),
     );
   }
 }
