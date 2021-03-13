@@ -16,6 +16,28 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
       (_$imagesLengthComputed ??= Computed<int>(() => super.imagesLength,
               name: '_InserirAnucioStore.imagesLength'))
           .value;
+  Computed<bool> _$categoryValidComputed;
+
+  @override
+  bool get categoryValid =>
+      (_$categoryValidComputed ??= Computed<bool>(() => super.categoryValid,
+              name: '_InserirAnucioStore.categoryValid'))
+          .value;
+
+  final _$categoryAtom = Atom(name: '_InserirAnucioStore.category');
+
+  @override
+  Category get category {
+    _$categoryAtom.reportRead();
+    return super.category;
+  }
+
+  @override
+  set category(Category value) {
+    _$categoryAtom.reportWrite(value, super.category, () {
+      super.category = value;
+    });
+  }
 
   final _$_InserirAnucioStoreActionController =
       ActionController(name: '_InserirAnucioStore');
@@ -32,9 +54,22 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
   }
 
   @override
+  void setCategory(Category value) {
+    final _$actionInfo = _$_InserirAnucioStoreActionController.startAction(
+        name: '_InserirAnucioStore.setCategory');
+    try {
+      return super.setCategory(value);
+    } finally {
+      _$_InserirAnucioStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
-imagesLength: ${imagesLength}
+category: ${category},
+imagesLength: ${imagesLength},
+categoryValid: ${categoryValid}
     ''';
   }
 }

@@ -1,6 +1,8 @@
 import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:xlo_app/screens/inseriranucio/components/category_field.dart';
+import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
 
@@ -45,7 +47,6 @@ class InserirAnucioScreen extends StatelessWidget {
                 ImagesField(
                   anucioStore: _anucioStore,
                 ),
-
                 TextFormField(
                   decoration: InputDecoration(
                     labelText: 'Título',
@@ -61,6 +62,7 @@ class InserirAnucioScreen extends StatelessWidget {
                   ),
                   maxLines: null,
                 ),
+                CategoryField(anucioStore: _anucioStore),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
