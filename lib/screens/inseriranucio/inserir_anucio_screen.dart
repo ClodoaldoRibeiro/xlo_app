@@ -2,10 +2,10 @@ import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:xlo_app/screens/inseriranucio/components/category_field.dart';
-import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
 
+import 'components/cep_field.dart';
 import 'components/images_field.dart';
 
 class InserirAnucioScreen extends StatelessWidget {
@@ -63,6 +63,7 @@ class InserirAnucioScreen extends StatelessWidget {
                   maxLines: null,
                 ),
                 CategoryField(anucioStore: _anucioStore),
+                CEPField(),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(
