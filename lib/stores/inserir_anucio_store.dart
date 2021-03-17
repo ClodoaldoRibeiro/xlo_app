@@ -13,6 +13,13 @@ abstract class _InserirAnucioStore with Store {
   @observable
   Category category;
 
+  @observable
+  bool hidePhone = false;
+
+  @action
+  void setHidePhone(bool valeu) {
+    hidePhone = valeu;
+  }
 
   void setImage(File file) {
     if (file != null) _imgens.add(file);
@@ -30,14 +37,11 @@ abstract class _InserirAnucioStore with Store {
     return _imgens[index];
   }
 
-
   @action
-  void setCategory(Category value){
-   this.category = value;
+  void setCategory(Category value) {
+    this.category = value;
   }
 
   @computed
   bool get categoryValid => category != null;
-
-
 }

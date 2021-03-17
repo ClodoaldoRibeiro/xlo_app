@@ -39,8 +39,34 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
     });
   }
 
+  final _$hidePhoneAtom = Atom(name: '_InserirAnucioStore.hidePhone');
+
+  @override
+  bool get hidePhone {
+    _$hidePhoneAtom.reportRead();
+    return super.hidePhone;
+  }
+
+  @override
+  set hidePhone(bool value) {
+    _$hidePhoneAtom.reportWrite(value, super.hidePhone, () {
+      super.hidePhone = value;
+    });
+  }
+
   final _$_InserirAnucioStoreActionController =
       ActionController(name: '_InserirAnucioStore');
+
+  @override
+  void setHidePhone(bool valeu) {
+    final _$actionInfo = _$_InserirAnucioStoreActionController.startAction(
+        name: '_InserirAnucioStore.setHidePhone');
+    try {
+      return super.setHidePhone(valeu);
+    } finally {
+      _$_InserirAnucioStoreActionController.endAction(_$actionInfo);
+    }
+  }
 
   @override
   File getImage(dynamic index) {
@@ -68,6 +94,7 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
   String toString() {
     return '''
 category: ${category},
+hidePhone: ${hidePhone},
 imagesLength: ${imagesLength},
 categoryValid: ${categoryValid}
     ''';

@@ -9,7 +9,7 @@ class CepStore = _CepStore with _$CepStore;
 abstract class _CepStore with Store {
   _CepStore() {
     autorun((_) {
-      if (cep.length != 8) {
+      if (cleanCep.length != 8) {
         _reset();
       } else {
         _searchCep();
@@ -17,7 +17,7 @@ abstract class _CepStore with Store {
     });
   }
   @observable
-  String cep;
+  String cep = "";
 
   @action
   void setCep(String valeu) {
@@ -33,7 +33,7 @@ abstract class _CepStore with Store {
   Address address;
 
   @observable
-  String error;
+  String error = "";
 
   @observable
   bool loading = false;
