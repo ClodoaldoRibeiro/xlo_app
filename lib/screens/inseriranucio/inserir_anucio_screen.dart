@@ -6,6 +6,7 @@ import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
 
 import 'components/cep_field.dart';
+import 'components/hide_phone_field.dart';
 import 'components/images_field.dart';
 
 class InserirAnucioScreen extends StatelessWidget {
@@ -76,6 +77,24 @@ class InserirAnucioScreen extends StatelessWidget {
                     FilteringTextInputFormatter.digitsOnly,
                     RealInputFormatter(centavos: true),
                   ],
+                ),
+                HidePhoneField(
+                  anucioStore: _anucioStore,
+                ),
+                SizedBox(height: 20,),
+                SizedBox(
+                  height: 50,
+                  child: RaisedButton(
+                    child: Text(
+                      'Enviar',
+                      style: TextStyle(fontSize: 18),
+                    ),
+                    textColor: Colors.white,
+                    color: Colors.orange,
+                    disabledColor: Colors.orange.withAlpha(120),
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    onPressed: () {},
+                  ),
                 ),
               ],
             ),

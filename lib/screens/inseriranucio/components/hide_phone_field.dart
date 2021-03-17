@@ -3,7 +3,7 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
 
 class HidePhoneField extends StatelessWidget {
-  HidePhoneField(this.anucioStore);
+  HidePhoneField({@required this.anucioStore});
 
   final InserirAnucioStore anucioStore;
 
