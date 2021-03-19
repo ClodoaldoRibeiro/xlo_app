@@ -87,7 +87,7 @@ class ImagesField extends StatelessWidget {
                   decoration: BoxDecoration(
                       border: Border(top: BorderSide(color: Colors.redAccent))),
                   child: Padding(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
+                    padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
                     child: Text(
                       anucioStore.imageError,
                       style: TextStyle(color: Colors.redAccent, fontSize: 12),

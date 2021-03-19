@@ -90,11 +90,19 @@ abstract class _InserirAnucioStore with Store {
     description = valeu;
   }
 
+  @computed
+  bool get categoryValid => category != null;
+
   @action
   void setCategory(Category value) {
     this.category = value;
   }
 
-  @computed
-  bool get categoryValid => category != null;
+  String get categoryError {
+    if (categoryValid) {
+      return null;
+    } else {
+      return "Inserir categoria";
+    }
+  }
 }

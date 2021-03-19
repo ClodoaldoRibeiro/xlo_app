@@ -62,13 +62,18 @@ class InserirAnucioScreen extends StatelessWidget {
                     );
                   },
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Descrição',
-                    labelStyle: labelStyle,
-                    contentPadding: contentPadding,
-                  ),
-                  maxLines: null,
+                Observer(
+                  builder: (context) {
+                    return TextFormField(
+                      onChanged: _anucioStore.setDescription,
+                      decoration: InputDecoration(
+                          labelText: 'Descrição',
+                          labelStyle: labelStyle,
+                          contentPadding: contentPadding,
+                          errorText: _anucioStore.descriptionError),
+                      maxLines: null,
+                    );
+                  },
                 ),
                 CategoryField(anucioStore: _anucioStore),
                 CEPField(),

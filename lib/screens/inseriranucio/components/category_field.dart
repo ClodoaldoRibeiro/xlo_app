@@ -52,6 +52,29 @@ class CategoryField extends StatelessWidget {
                 }
               },
             ),
+            if (anucioStore.categoryError != null)
+              Container(
+                alignment: Alignment.centerLeft,
+                decoration: BoxDecoration(
+                  border: Border(top: BorderSide(color: Colors.red)),
+                ),
+                padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
+                child: Text(
+                  anucioStore.categoryError,
+                  style: TextStyle(
+                    color: Colors.red,
+                    fontSize: 12,
+                  ),
+                ),
+              )
+            else
+              Container(
+                decoration: BoxDecoration(
+                  border: Border(
+                    top: BorderSide(color: Colors.grey[500]),
+                  ),
+                ),
+              )
           ],
         );
       },
