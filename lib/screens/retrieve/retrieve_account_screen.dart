@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/screens/signup/components/field_title.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
+import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/screens/widgets/xlo_raise_button.dart';
+import 'package:xlo_app/stores/retrieve_store.dart';
 
 class RetrieveAccount extends StatelessWidget {
+  RetrieveStore _retrieveStore = RetrieveStore();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -57,6 +62,14 @@ class RetrieveAccount extends StatelessWidget {
                               ),
                             ],
                           ),
+                          Observer(builder: (_) {
+                            return Padding(
+                              padding: const EdgeInsets.only(top: 8),
+                              child: XLOErrorBox(
+                                message: _retrieveStore.getErro,
+                              ),
+                            );
+                          }),
                           SizedBox(
                             height: 30,
                           ),
@@ -64,23 +77,35 @@ class RetrieveAccount extends StatelessWidget {
                             title: 'E-mail',
                             subtitle: 'Enviaremos um e-mail de instrução.',
                           ),
-                          TextField(
-                            keyboardType: TextInputType.emailAddress,
-                            enabled: true,
-                            autocorrect: false,
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: 'Exemplo: joao@gmail.com',
-                              isDense: true,
-                            ),
-                            onChanged: (value) {},
+                          Observer(
+                            builder: (_) {
+                              return TextField(
+                                keyboardType: TextInputType.emailAddress,
+                                enabled: true,
+                                autocorrect: false,
+                                decoration: InputDecoration(
+                                    border: OutlineInputBorder(),
+                                    hintText: 'Exemplo: joao@gmail.com',
+                                    isDense: true,
+                                    errorText: _retrieveStore.emailErro),
+                                onChanged: _retrieveStore.setEmail,
+                              );
+                            },
                           ),
                           const SizedBox(
                             height: 16,
                           ),
-                          XLORaiseButton(
-                              child: Text("Receber instruções"),
-                              pressed: () {}),
+                          Observer(
+                            builder: (context) {
+                              return XLORaiseButton(
+                                  child: Text("Receber instruções"),
+                                  pressed: _retrieveStore.emailValid
+                                      ? () {
+                                          _retrieveStore.recuperarSenha();
+                                        }
+                                      : null);
+                            },
+                          ),
                           Divider(
                             color: AppColors.COR_PRIMARIA,
                           ),

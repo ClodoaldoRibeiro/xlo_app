@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:xlo_app/screens/retrieve/retrieve_account.dart';
+import 'package:xlo_app/screens/retrieve/retrieve_account_screen.dart';
 import 'package:xlo_app/screens/signup/signup_screen.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/screens/widgets/xlo_error_box.dart';

@@ -65,9 +65,8 @@ class UserRepository {
     await currentUser.logout();
   }
 
-
-  Future<UserModel> requestPasswordReset(String email) async {
-    final parseruser = ParseUser(email, null, null);
+  Future<UserModel> doUserResetPassword(String email) async {
+    final parseruser = ParseUser(null, null, email);
 
     final response = await parseruser.requestPasswordReset();
 
