@@ -1,6 +1,7 @@
 import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/screens/inseriranucio/components/category_field.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
@@ -48,12 +49,18 @@ class InserirAnucioScreen extends StatelessWidget {
                 ImagesField(
                   anucioStore: _anucioStore,
                 ),
-                TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Título',
-                    labelStyle: labelStyle,
-                    contentPadding: contentPadding,
-                  ),
+                Observer(
+                  builder: (context) {
+                    return TextFormField(
+                      onChanged: _anucioStore.setTitle,
+                      decoration: InputDecoration(
+                        labelText: 'Título',
+                        labelStyle: labelStyle,
+                        contentPadding: contentPadding,
+                        errorText: _anucioStore.titleError,
+                      ),
+                    );
+                  },
                 ),
                 TextFormField(
                   decoration: InputDecoration(
@@ -81,7 +88,9 @@ class InserirAnucioScreen extends StatelessWidget {
                 HidePhoneField(
                   anucioStore: _anucioStore,
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 SizedBox(
                   height: 50,
                   child: RaisedButton(

@@ -16,6 +16,27 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
       (_$imagesLengthComputed ??= Computed<int>(() => super.imagesLength,
               name: '_InserirAnucioStore.imagesLength'))
           .value;
+  Computed<bool> _$isImageValidComputed;
+
+  @override
+  bool get isImageValid =>
+      (_$isImageValidComputed ??= Computed<bool>(() => super.isImageValid,
+              name: '_InserirAnucioStore.isImageValid'))
+          .value;
+  Computed<bool> _$isTitleValidComputed;
+
+  @override
+  bool get isTitleValid =>
+      (_$isTitleValidComputed ??= Computed<bool>(() => super.isTitleValid,
+              name: '_InserirAnucioStore.isTitleValid'))
+          .value;
+  Computed<bool> _$isDescriptionalidComputed;
+
+  @override
+  bool get isDescriptionalid => (_$isDescriptionalidComputed ??= Computed<bool>(
+          () => super.isDescriptionalid,
+          name: '_InserirAnucioStore.isDescriptionalid'))
+      .value;
   Computed<bool> _$categoryValidComputed;
 
   @override
@@ -54,6 +75,36 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
     });
   }
 
+  final _$titleAtom = Atom(name: '_InserirAnucioStore.title');
+
+  @override
+  String get title {
+    _$titleAtom.reportRead();
+    return super.title;
+  }
+
+  @override
+  set title(String value) {
+    _$titleAtom.reportWrite(value, super.title, () {
+      super.title = value;
+    });
+  }
+
+  final _$descriptionAtom = Atom(name: '_InserirAnucioStore.description');
+
+  @override
+  String get description {
+    _$descriptionAtom.reportRead();
+    return super.description;
+  }
+
+  @override
+  set description(String value) {
+    _$descriptionAtom.reportWrite(value, super.description, () {
+      super.description = value;
+    });
+  }
+
   final _$_InserirAnucioStoreActionController =
       ActionController(name: '_InserirAnucioStore');
 
@@ -80,6 +131,28 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
   }
 
   @override
+  void setTitle(String valeu) {
+    final _$actionInfo = _$_InserirAnucioStoreActionController.startAction(
+        name: '_InserirAnucioStore.setTitle');
+    try {
+      return super.setTitle(valeu);
+    } finally {
+      _$_InserirAnucioStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setDescription(String valeu) {
+    final _$actionInfo = _$_InserirAnucioStoreActionController.startAction(
+        name: '_InserirAnucioStore.setDescription');
+    try {
+      return super.setDescription(valeu);
+    } finally {
+      _$_InserirAnucioStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setCategory(Category value) {
     final _$actionInfo = _$_InserirAnucioStoreActionController.startAction(
         name: '_InserirAnucioStore.setCategory');
@@ -95,7 +168,12 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
     return '''
 category: ${category},
 hidePhone: ${hidePhone},
+title: ${title},
+description: ${description},
 imagesLength: ${imagesLength},
+isImageValid: ${isImageValid},
+isTitleValid: ${isTitleValid},
+isDescriptionalid: ${isDescriptionalid},
 categoryValid: ${categoryValid}
     ''';
   }

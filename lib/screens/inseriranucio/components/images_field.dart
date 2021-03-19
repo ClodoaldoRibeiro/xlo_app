@@ -79,6 +79,24 @@ class ImagesField extends StatelessWidget {
             },
           ),
         ),
+        Observer(
+          builder: (_) {
+            if (anucioStore.imageError != null)
+              return Container(
+                  alignment: Alignment.centerLeft,
+                  decoration: BoxDecoration(
+                      border: Border(top: BorderSide(color: Colors.redAccent))),
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 0, 8),
+                    child: Text(
+                      anucioStore.imageError,
+                      style: TextStyle(color: Colors.redAccent, fontSize: 12),
+                    ),
+                  ));
+            else
+              return Container();
+          },
+        )
       ],
     );
   }
