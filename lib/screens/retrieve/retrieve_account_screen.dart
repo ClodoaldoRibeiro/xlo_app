@@ -4,6 +4,7 @@ import 'package:xlo_app/screens/signup/components/field_title.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/screens/widgets/xlo_raise_button.dart';
+import 'package:xlo_app/screens/widgets/xlo_success_box.dart';
 import 'package:xlo_app/stores/retrieve_store.dart';
 
 class RetrieveAccount extends StatelessWidget {
@@ -63,12 +64,19 @@ class RetrieveAccount extends StatelessWidget {
                             ],
                           ),
                           Observer(builder: (_) {
-                            return Padding(
-                              padding: const EdgeInsets.only(top: 8),
-                              child: XLOErrorBox(
-                                message: _retrieveStore.getErro,
-                              ),
-                            );
+                            return _retrieveStore.getErro != null
+                                ? Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: XLOErrorBox(
+                                      message: _retrieveStore.getErro,
+                                    ),
+                                  )
+                                : Padding(
+                                    padding: const EdgeInsets.only(top: 8),
+                                    child: XLOSuccessBox(
+                                      message: _retrieveStore.getSuccess,
+                                    ),
+                                  );
                           }),
                           SizedBox(
                             height: 30,

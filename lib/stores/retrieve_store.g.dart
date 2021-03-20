@@ -36,6 +36,13 @@ mixin _$RetrieveStore on _RetrieveStore, Store {
   String get getErro => (_$getErroComputed ??=
           Computed<String>(() => super.getErro, name: '_RetrieveStore.getErro'))
       .value;
+  Computed<String> _$getSuccessComputed;
+
+  @override
+  String get getSuccess =>
+      (_$getSuccessComputed ??= Computed<String>(() => super.getSuccess,
+              name: '_RetrieveStore.getSuccess'))
+          .value;
 
   final _$_emailAtom = Atom(name: '_RetrieveStore._email');
 
@@ -82,6 +89,21 @@ mixin _$RetrieveStore on _RetrieveStore, Store {
     });
   }
 
+  final _$_successAtom = Atom(name: '_RetrieveStore._success');
+
+  @override
+  String get _success {
+    _$_successAtom.reportRead();
+    return super._success;
+  }
+
+  @override
+  set _success(String value) {
+    _$_successAtom.reportWrite(value, super._success, () {
+      super._success = value;
+    });
+  }
+
   final _$recuperarSenhaAsyncAction =
       AsyncAction('_RetrieveStore.recuperarSenha');
 
@@ -105,12 +127,24 @@ mixin _$RetrieveStore on _RetrieveStore, Store {
   }
 
   @override
+  void reset() {
+    final _$actionInfo = _$_RetrieveStoreActionController.startAction(
+        name: '_RetrieveStore.reset');
+    try {
+      return super.reset();
+    } finally {
+      _$_RetrieveStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 getEmail: ${getEmail},
 getLoading: ${getLoading},
 emailErro: ${emailErro},
-getErro: ${getErro}
+getErro: ${getErro},
+getSuccess: ${getSuccess}
     ''';
   }
 }

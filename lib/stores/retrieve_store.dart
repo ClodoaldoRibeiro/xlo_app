@@ -19,6 +19,9 @@ abstract class _RetrieveStore with Store {
   @observable
   String _erro;
 
+  @observable
+  String _success;
+
   //Validar dados do E-mail
   @action
   void setEmail(String email) {
@@ -52,17 +55,30 @@ abstract class _RetrieveStore with Store {
     return this._erro;
   }
 
+  @computed
+  String get getSuccess {
+    return this._success;
+  }
+
   @action
   Future<void> recuperarSenha() async {
     _loading = true;
 
     try {
       final user = await UserRepository().doUserResetPassword(_email.trim());
-      // GetIt.I<UserManagerStore>().setUser(user);
+      reset();
+      _success =
+          "As instruções de redefinição de senha foram enviadas para o e-mail!";
     } catch (e) {
       _erro = e;
     }
 
     _loading = false;
+  }
+
+  @action
+  void reset() {
+    _erro = null;
+    _email = "";
   }
 }

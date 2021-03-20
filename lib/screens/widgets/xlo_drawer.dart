@@ -78,6 +78,15 @@ class _XLODrawerSection extends StatelessWidget {
           },
           highLighted: _pageStore.page == 4,
         ),
+        Divider(),
+        ListTile(
+          leading: Icon(Icons.logout),
+          title: Text(
+            "Sair",
+            style:
+                TextStyle(fontWeight: FontWeight.w700, color: Colors.black54),
+          ),
+        ),
       ],
     );
   }
