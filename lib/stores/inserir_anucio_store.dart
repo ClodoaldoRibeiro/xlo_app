@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:mobx/mobx.dart';
+import 'package:xlo_app/models/address.dart';
 import 'package:xlo_app/models/category.dart';
+import 'package:xlo_app/stores/cep_store.dart';
 
 part 'inserir_anucio_store.g.dart';
 
@@ -103,6 +105,23 @@ abstract class _InserirAnucioStore with Store {
       return null;
     } else {
       return "Inserir categoria";
+    }
+  }
+
+  @observable
+  CepStore cepStore = CepStore();
+
+  @computed
+  Address get address => cepStore.address;
+
+  @computed
+  bool get addressValid => cepStore.address != null;
+
+  String get addressError {
+    if (addressValid) {
+      return null;
+    } else {
+      return "Campo obrigatóorio";
     }
   }
 }

@@ -76,7 +76,7 @@ class InserirAnucioScreen extends StatelessWidget {
                   },
                 ),
                 CategoryField(anucioStore: _anucioStore),
-                CEPField(),
+                CEPField(_anucioStore),
                 TextFormField(
                   keyboardType: TextInputType.number,
                   decoration: InputDecoration(

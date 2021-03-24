@@ -44,6 +44,20 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
       (_$categoryValidComputed ??= Computed<bool>(() => super.categoryValid,
               name: '_InserirAnucioStore.categoryValid'))
           .value;
+  Computed<Address> _$addressComputed;
+
+  @override
+  Address get address =>
+      (_$addressComputed ??= Computed<Address>(() => super.address,
+              name: '_InserirAnucioStore.address'))
+          .value;
+  Computed<bool> _$addressValidComputed;
+
+  @override
+  bool get addressValid =>
+      (_$addressValidComputed ??= Computed<bool>(() => super.addressValid,
+              name: '_InserirAnucioStore.addressValid'))
+          .value;
 
   final _$categoryAtom = Atom(name: '_InserirAnucioStore.category');
 
@@ -102,6 +116,21 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
   set description(String value) {
     _$descriptionAtom.reportWrite(value, super.description, () {
       super.description = value;
+    });
+  }
+
+  final _$cepStoreAtom = Atom(name: '_InserirAnucioStore.cepStore');
+
+  @override
+  CepStore get cepStore {
+    _$cepStoreAtom.reportRead();
+    return super.cepStore;
+  }
+
+  @override
+  set cepStore(CepStore value) {
+    _$cepStoreAtom.reportWrite(value, super.cepStore, () {
+      super.cepStore = value;
     });
   }
 
@@ -170,11 +199,14 @@ category: ${category},
 hidePhone: ${hidePhone},
 title: ${title},
 description: ${description},
+cepStore: ${cepStore},
 imagesLength: ${imagesLength},
 isImageValid: ${isImageValid},
 isTitleValid: ${isTitleValid},
 isDescriptionalid: ${isDescriptionalid},
-categoryValid: ${categoryValid}
+categoryValid: ${categoryValid},
+address: ${address},
+addressValid: ${addressValid}
     ''';
   }
 }

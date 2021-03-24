@@ -3,31 +3,40 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/stores/cep_store.dart';
+import 'package:xlo_app/stores/inserir_anucio_store.dart';
 
 class CEPField extends StatelessWidget {
-  final CepStore cepStore = CepStore();
+  CEPField(this.anucioStore) : cepStore = anucioStore.cepStore;
+
+  final CepStore cepStore;
+  final InserirAnucioStore anucioStore;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        TextFormField(
-          onChanged: cepStore.setCep,
-          keyboardType: TextInputType.number,
-          inputFormatters: [
-            FilteringTextInputFormatter.digitsOnly,
-            CepInputFormatter()
-          ],
-          decoration: InputDecoration(
-            labelText: 'CEP',
-            labelStyle: TextStyle(
-              fontWeight: FontWeight.w800,
-              color: Colors.grey,
-              fontSize: 18,
-            ),
-            contentPadding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
-          ),
+        Observer(
+          builder: (context) {
+            return TextFormField(
+              onChanged: cepStore.setCep,
+              keyboardType: TextInputType.number,
+              inputFormatters: [
+                FilteringTextInputFormatter.digitsOnly,
+                CepInputFormatter()
+              ],
+              decoration: InputDecoration(
+                errorText: anucioStore.addressError,
+                labelText: 'CEP',
+                labelStyle: TextStyle(
+                  fontWeight: FontWeight.w800,
+                  color: Colors.grey,
+                  fontSize: 18,
+                ),
+                contentPadding: const EdgeInsets.fromLTRB(16, 10, 12, 10),
+              ),
+            );
+          },
         ),
         Observer(
           builder: (context) {
