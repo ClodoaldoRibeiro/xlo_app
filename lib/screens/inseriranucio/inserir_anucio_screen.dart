@@ -77,18 +77,24 @@ class InserirAnucioScreen extends StatelessWidget {
                 ),
                 CategoryField(anucioStore: _anucioStore),
                 CEPField(_anucioStore),
-                TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(
-                    labelText: 'Preço',
-                    labelStyle: labelStyle,
-                    contentPadding: contentPadding,
-                    prefixText: 'R\$ ',
-                  ),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.digitsOnly,
-                    RealInputFormatter(centavos: true),
-                  ],
+                Observer(
+                  builder: (context) {
+                    return TextFormField(
+                      onChanged: _anucioStore.setPrice,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        errorText: _anucioStore.priceError,
+                        labelText: 'Preço',
+                        labelStyle: labelStyle,
+                        contentPadding: contentPadding,
+                        prefixText: 'R\$ ',
+                      ),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.digitsOnly,
+                        RealInputFormatter(centavos: true),
+                      ],
+                    );
+                  },
                 ),
                 HidePhoneField(
                   anucioStore: _anucioStore,

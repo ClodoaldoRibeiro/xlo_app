@@ -58,6 +58,12 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
       (_$addressValidComputed ??= Computed<bool>(() => super.addressValid,
               name: '_InserirAnucioStore.addressValid'))
           .value;
+  Computed<num> _$priceComputed;
+
+  @override
+  num get price => (_$priceComputed ??=
+          Computed<num>(() => super.price, name: '_InserirAnucioStore.price'))
+      .value;
 
   final _$categoryAtom = Atom(name: '_InserirAnucioStore.category');
 
@@ -134,6 +140,21 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
     });
   }
 
+  final _$priceTextAtom = Atom(name: '_InserirAnucioStore.priceText');
+
+  @override
+  String get priceText {
+    _$priceTextAtom.reportRead();
+    return super.priceText;
+  }
+
+  @override
+  set priceText(String value) {
+    _$priceTextAtom.reportWrite(value, super.priceText, () {
+      super.priceText = value;
+    });
+  }
+
   final _$_InserirAnucioStoreActionController =
       ActionController(name: '_InserirAnucioStore');
 
@@ -193,6 +214,17 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
   }
 
   @override
+  void setPrice(String value) {
+    final _$actionInfo = _$_InserirAnucioStoreActionController.startAction(
+        name: '_InserirAnucioStore.setPrice');
+    try {
+      return super.setPrice(value);
+    } finally {
+      _$_InserirAnucioStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 category: ${category},
@@ -200,13 +232,15 @@ hidePhone: ${hidePhone},
 title: ${title},
 description: ${description},
 cepStore: ${cepStore},
+priceText: ${priceText},
 imagesLength: ${imagesLength},
 isImageValid: ${isImageValid},
 isTitleValid: ${isTitleValid},
 isDescriptionalid: ${isDescriptionalid},
 categoryValid: ${categoryValid},
 address: ${address},
-addressValid: ${addressValid}
+addressValid: ${addressValid},
+price: ${price}
     ''';
   }
 }
