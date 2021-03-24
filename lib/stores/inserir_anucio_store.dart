@@ -46,10 +46,10 @@ abstract class _InserirAnucioStore with Store {
   int get imagesLength => _imgens.length;
 
   @computed
-  bool get isImageValid => _imgens.isNotEmpty;
+  bool get imageValid => _imgens.isNotEmpty;
 
   String get imageError {
-    if (isImageValid) {
+    if (!showErrors || imageValid) {
       return null;
     } else {
       return "Inserir imagem";
@@ -57,10 +57,10 @@ abstract class _InserirAnucioStore with Store {
   }
 
   @computed
-  bool get isTitleValid => title.length > 6;
+  bool get titleValid => title.length > 6;
 
   String get titleError {
-    if (isTitleValid) {
+    if (!showErrors || titleValid) {
       return null;
     } else if (title.isEmpty) {
       return "Inserir título";
@@ -75,10 +75,10 @@ abstract class _InserirAnucioStore with Store {
   }
 
   @computed
-  bool get isDescriptionalid => description.length > 10;
+  bool get descriptionValid => description.length > 10;
 
   String get descriptionError {
-    if (isDescriptionalid) {
+    if (!showErrors || descriptionValid) {
       return null;
     } else if (title.isEmpty) {
       return "Informe a descrição";
@@ -101,7 +101,7 @@ abstract class _InserirAnucioStore with Store {
   }
 
   String get categoryError {
-    if (categoryValid) {
+    if (!showErrors || categoryValid) {
       return null;
     } else {
       return "Inserir categoria";
@@ -118,7 +118,7 @@ abstract class _InserirAnucioStore with Store {
   bool get addressValid => cepStore.address != null;
 
   String get addressError {
-    if (addressValid) {
+    if (!showErrors || addressValid) {
       return null;
     } else {
       return "Campo obrigatóorio";
@@ -143,11 +143,31 @@ abstract class _InserirAnucioStore with Store {
   bool get priceValid => price != null && price <= 9999999;
 
   String get priceError {
-    if (priceValid)
+    if (!showErrors || priceValid)
       return null;
     else if (priceText.isEmpty)
       return 'Campo obrigatório';
     else
       return 'Preço inválido';
   }
+
+  @computed
+  bool get formValid =>
+      imageValid &&
+      titleValid &&
+      descriptionValid &&
+      categoryValid &&
+      addressValid &&
+      priceValid;
+
+  @computed
+  Function get sendPressed => formValid ? _send : null;
+
+  @observable
+  bool showErrors = false;
+
+  @action
+  void invalidSendPressed() => showErrors = true;
+
+  void _send() {}
 }

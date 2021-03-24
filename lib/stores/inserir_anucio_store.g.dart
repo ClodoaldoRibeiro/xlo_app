@@ -16,26 +16,26 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
       (_$imagesLengthComputed ??= Computed<int>(() => super.imagesLength,
               name: '_InserirAnucioStore.imagesLength'))
           .value;
-  Computed<bool> _$isImageValidComputed;
+  Computed<bool> _$imageValidComputed;
 
   @override
-  bool get isImageValid =>
-      (_$isImageValidComputed ??= Computed<bool>(() => super.isImageValid,
-              name: '_InserirAnucioStore.isImageValid'))
+  bool get imageValid =>
+      (_$imageValidComputed ??= Computed<bool>(() => super.imageValid,
+              name: '_InserirAnucioStore.imageValid'))
           .value;
-  Computed<bool> _$isTitleValidComputed;
+  Computed<bool> _$titleValidComputed;
 
   @override
-  bool get isTitleValid =>
-      (_$isTitleValidComputed ??= Computed<bool>(() => super.isTitleValid,
-              name: '_InserirAnucioStore.isTitleValid'))
+  bool get titleValid =>
+      (_$titleValidComputed ??= Computed<bool>(() => super.titleValid,
+              name: '_InserirAnucioStore.titleValid'))
           .value;
-  Computed<bool> _$isDescriptionalidComputed;
+  Computed<bool> _$descriptionValidComputed;
 
   @override
-  bool get isDescriptionalid => (_$isDescriptionalidComputed ??= Computed<bool>(
-          () => super.isDescriptionalid,
-          name: '_InserirAnucioStore.isDescriptionalid'))
+  bool get descriptionValid => (_$descriptionValidComputed ??= Computed<bool>(
+          () => super.descriptionValid,
+          name: '_InserirAnucioStore.descriptionValid'))
       .value;
   Computed<bool> _$categoryValidComputed;
 
@@ -64,6 +64,20 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
   num get price => (_$priceComputed ??=
           Computed<num>(() => super.price, name: '_InserirAnucioStore.price'))
       .value;
+  Computed<bool> _$formValidComputed;
+
+  @override
+  bool get formValid =>
+      (_$formValidComputed ??= Computed<bool>(() => super.formValid,
+              name: '_InserirAnucioStore.formValid'))
+          .value;
+  Computed<Function> _$sendPressedComputed;
+
+  @override
+  Function get sendPressed =>
+      (_$sendPressedComputed ??= Computed<Function>(() => super.sendPressed,
+              name: '_InserirAnucioStore.sendPressed'))
+          .value;
 
   final _$categoryAtom = Atom(name: '_InserirAnucioStore.category');
 
@@ -155,6 +169,21 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
     });
   }
 
+  final _$showErrorsAtom = Atom(name: '_InserirAnucioStore.showErrors');
+
+  @override
+  bool get showErrors {
+    _$showErrorsAtom.reportRead();
+    return super.showErrors;
+  }
+
+  @override
+  set showErrors(bool value) {
+    _$showErrorsAtom.reportWrite(value, super.showErrors, () {
+      super.showErrors = value;
+    });
+  }
+
   final _$_InserirAnucioStoreActionController =
       ActionController(name: '_InserirAnucioStore');
 
@@ -225,6 +254,17 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
   }
 
   @override
+  void invalidSendPressed() {
+    final _$actionInfo = _$_InserirAnucioStoreActionController.startAction(
+        name: '_InserirAnucioStore.invalidSendPressed');
+    try {
+      return super.invalidSendPressed();
+    } finally {
+      _$_InserirAnucioStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   String toString() {
     return '''
 category: ${category},
@@ -233,14 +273,17 @@ title: ${title},
 description: ${description},
 cepStore: ${cepStore},
 priceText: ${priceText},
+showErrors: ${showErrors},
 imagesLength: ${imagesLength},
-isImageValid: ${isImageValid},
-isTitleValid: ${isTitleValid},
-isDescriptionalid: ${isDescriptionalid},
+imageValid: ${imageValid},
+titleValid: ${titleValid},
+descriptionValid: ${descriptionValid},
 categoryValid: ${categoryValid},
 address: ${address},
 addressValid: ${addressValid},
-price: ${price}
+price: ${price},
+formValid: ${formValid},
+sendPressed: ${sendPressed}
     ''';
   }
 }

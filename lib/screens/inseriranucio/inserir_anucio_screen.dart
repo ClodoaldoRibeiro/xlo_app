@@ -102,19 +102,27 @@ class InserirAnucioScreen extends StatelessWidget {
                 SizedBox(
                   height: 20,
                 ),
-                SizedBox(
-                  height: 50,
-                  child: RaisedButton(
-                    child: Text(
-                      'Enviar',
-                      style: TextStyle(fontSize: 18),
-                    ),
-                    textColor: Colors.white,
-                    color: Colors.orange,
-                    disabledColor: Colors.orange.withAlpha(120),
-                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                    onPressed: () {},
-                  ),
+                Observer(
+                  builder: (context) {
+                    return SizedBox(
+                      height: 50,
+                      child: GestureDetector(
+                        onTap: _anucioStore.invalidSendPressed,
+                        child: RaisedButton(
+                          child: Text(
+                            'Enviar',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          textColor: Colors.white,
+                          color: Colors.orange,
+                          disabledColor: Colors.orange.withAlpha(120),
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          onPressed: _anucioStore.sendPressed,
+                        ),
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
