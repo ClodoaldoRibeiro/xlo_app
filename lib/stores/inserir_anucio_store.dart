@@ -1,9 +1,12 @@
 import 'dart:io';
 
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
+import 'package:xlo_app/models/ad.dart';
 import 'package:xlo_app/models/address.dart';
 import 'package:xlo_app/models/category.dart';
 import 'package:xlo_app/stores/cep_store.dart';
+import 'package:xlo_app/stores/user_manager_store.dart';
 
 part 'inserir_anucio_store.g.dart';
 
@@ -169,5 +172,25 @@ abstract class _InserirAnucioStore with Store {
   @action
   void invalidSendPressed() => showErrors = true;
 
-  void _send() {}
+  @action
+  Future<void> _send() async {
+    final Ad ad = Ad();
+    ad.title = title;
+    ad.description = description;
+    ad.category = category;
+    ad.price = price;
+    ad.hidePhone = hidePhone;
+    ad.images = _imgens;
+    ad.address = address;
+    ad.user = GetIt.I<UserManagerStore>().userModel;
+
+    // loading = true;
+    // try {
+    //   await AdRepository().save(ad);
+    //   savedAd = true;
+    // } catch (e) {
+    //   error = e;
+    // }
+    // loading = false;
+  }
 }

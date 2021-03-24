@@ -184,6 +184,13 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
     });
   }
 
+  final _$_sendAsyncAction = AsyncAction('_InserirAnucioStore._send');
+
+  @override
+  Future<void> _send() {
+    return _$_sendAsyncAction.run(() => super._send());
+  }
+
   final _$_InserirAnucioStoreActionController =
       ActionController(name: '_InserirAnucioStore');
 
