@@ -184,6 +184,21 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
     });
   }
 
+  final _$loadingAtom = Atom(name: '_InserirAnucioStore.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
   final _$_sendAsyncAction = AsyncAction('_InserirAnucioStore._send');
 
   @override
@@ -281,6 +296,7 @@ description: ${description},
 cepStore: ${cepStore},
 priceText: ${priceText},
 showErrors: ${showErrors},
+loading: ${loading},
 imagesLength: ${imagesLength},
 imageValid: ${imageValid},
 titleValid: ${titleValid},

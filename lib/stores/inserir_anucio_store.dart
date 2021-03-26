@@ -5,6 +5,7 @@ import 'package:mobx/mobx.dart';
 import 'package:xlo_app/models/ad.dart';
 import 'package:xlo_app/models/address.dart';
 import 'package:xlo_app/models/category.dart';
+import 'package:xlo_app/repositories/ad_repository.dart';
 import 'package:xlo_app/stores/cep_store.dart';
 import 'package:xlo_app/stores/user_manager_store.dart';
 
@@ -172,9 +173,13 @@ abstract class _InserirAnucioStore with Store {
   @action
   void invalidSendPressed() => showErrors = true;
 
+  @observable
+  bool loading = false;
+
   @action
   Future<void> _send() async {
     final Ad ad = Ad();
+
     ad.title = title;
     ad.description = description;
     ad.category = category;
@@ -184,13 +189,13 @@ abstract class _InserirAnucioStore with Store {
     ad.address = address;
     ad.user = GetIt.I<UserManagerStore>().userModel;
 
-    // loading = true;
-    // try {
-    //   await AdRepository().save(ad);
-    //   savedAd = true;
-    // } catch (e) {
-    //   error = e;
-    // }
-    // loading = false;
+    loading = true;
+    try {
+      await AdRepository().save(ad);
+      // savedAd = true;
+    } catch (e) {
+      // error = e;
+    }
+    loading = false;
   }
 }
