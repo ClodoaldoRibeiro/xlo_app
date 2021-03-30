@@ -12,7 +12,10 @@ class AdRepository {
     try {
       final parseImages = await saveImages(ad.images);
 
-      final parseUser = ParseUser('', '', '')..set(keyUserId, ad.user.id);
+      // final parseUser = ParseUser('', '', '')..set(keyUserId, ad.user.id);
+      final parseUser = ParseUser(ad.user.nome, ad.user.senha, ad.user.email)..set(keyUserId, ad.user.id);
+      print('parseUser');
+      print(parseUser);
 
       final adObject = ParseObject(keyAdTable);
 
