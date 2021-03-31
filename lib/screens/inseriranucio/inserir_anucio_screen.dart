@@ -26,7 +26,7 @@ class _InserirAnucioScreenState extends State<InserirAnucioScreen> {
   void initState() {
     super.initState();
 
-    when((_) => _anucioStore.savedAd != null, () {
+    when((_) => _anucioStore.savedAd, () {
       GetIt.I<PageStore>().setPage(0);
     });
   }

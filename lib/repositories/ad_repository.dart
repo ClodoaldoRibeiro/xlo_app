@@ -7,7 +7,7 @@ import 'package:path/path.dart' as path;
 import 'package:xlo_app/repositories/table_keys.dart';
 
 class AdRepository {
-  Future<Ad> save(Ad ad) async {
+  Future<void> save(Ad ad) async {
     try {
       final parseImages = await saveImages(ad.images);
 
@@ -43,9 +43,7 @@ class AdRepository {
 
       final response = await adObject.save();
 
-      if (response.success) {
-        return Ad.fromParse(response.result);
-      } else {
+      if (!response.success) {
         return Future.error(ParseErrors.getDescription(response.error.code));
       }
     } catch (e) {

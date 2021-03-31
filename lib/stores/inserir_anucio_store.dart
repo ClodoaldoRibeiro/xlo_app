@@ -180,7 +180,7 @@ abstract class _InserirAnucioStore with Store {
   String error;
 
   @observable
-  Ad savedAd;
+  bool savedAd = false;
 
   @action
   Future<void> _send() async {
@@ -197,8 +197,8 @@ abstract class _InserirAnucioStore with Store {
 
     loading = true;
     try {
-     savedAd =  await AdRepository().save(ad);
-      // savedAd = true;
+      await AdRepository().save(ad);
+      savedAd = true;
     } catch (e) {
       error = e;
     }
