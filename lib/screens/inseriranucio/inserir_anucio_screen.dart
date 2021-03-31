@@ -2,17 +2,34 @@ import 'package:brasil_fields/formatter/real_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 import 'package:xlo_app/screens/inseriranucio/components/category_field.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
 import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
+import 'package:xlo_app/stores/page_store.dart';
 
 import 'components/cep_field.dart';
 import 'components/hide_phone_field.dart';
 import 'components/images_field.dart';
 
-class InserirAnucioScreen extends StatelessWidget {
+class InserirAnucioScreen extends StatefulWidget {
+  @override
+  _InserirAnucioScreenState createState() => _InserirAnucioScreenState();
+}
+
+class _InserirAnucioScreenState extends State<InserirAnucioScreen> {
   InserirAnucioStore _anucioStore = InserirAnucioStore();
+
+  @override
+  void initState() {
+    super.initState();
+
+    when((_) => _anucioStore.savedAd != null, () {
+      GetIt.I<PageStore>().setPage(0);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

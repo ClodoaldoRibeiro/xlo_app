@@ -7,12 +7,12 @@ import 'package:path/path.dart' as path;
 import 'package:xlo_app/repositories/table_keys.dart';
 
 class AdRepository {
-
-  Future<void> save(Ad ad) async {
+  Future<Ad> save(Ad ad) async {
     try {
       final parseImages = await saveImages(ad.images);
 
-      final parseUser = ParseUser(ad.user.nome, ad.user.senha, ad.user.email)..set(keyUserId, ad.user.id);
+      final parseUser = ParseUser(ad.user.nome, ad.user.senha, ad.user.email)
+        ..set(keyUserId, ad.user.id);
 
       final adObject = ParseObject(keyAdTable);
 
@@ -43,7 +43,9 @@ class AdRepository {
 
       final response = await adObject.save();
 
-      if (!response.success) {
+      if (response.success) {
+        return Ad.fromParse(response.result);
+      } else {
         return Future.error(ParseErrors.getDescription(response.error.code));
       }
     } catch (e) {
@@ -51,9 +53,6 @@ class AdRepository {
       return Future.error('Falha ao salvar anúncio');
     }
   }
-
-
-
 
   Future<List<ParseFile>> saveImages(List images) async {
     final parseImages = <ParseFile>[];

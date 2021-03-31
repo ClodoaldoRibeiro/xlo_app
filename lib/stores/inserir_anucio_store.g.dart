@@ -214,6 +214,21 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
     });
   }
 
+  final _$savedAdAtom = Atom(name: '_InserirAnucioStore.savedAd');
+
+  @override
+  Ad get savedAd {
+    _$savedAdAtom.reportRead();
+    return super.savedAd;
+  }
+
+  @override
+  set savedAd(Ad value) {
+    _$savedAdAtom.reportWrite(value, super.savedAd, () {
+      super.savedAd = value;
+    });
+  }
+
   final _$_sendAsyncAction = AsyncAction('_InserirAnucioStore._send');
 
   @override
@@ -313,6 +328,7 @@ priceText: ${priceText},
 showErrors: ${showErrors},
 loading: ${loading},
 error: ${error},
+savedAd: ${savedAd},
 imagesLength: ${imagesLength},
 imageValid: ${imageValid},
 titleValid: ${titleValid},
