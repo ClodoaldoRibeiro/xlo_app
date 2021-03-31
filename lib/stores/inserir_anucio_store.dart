@@ -176,6 +176,9 @@ abstract class _InserirAnucioStore with Store {
   @observable
   bool loading = false;
 
+  @observable
+  String error;
+
   @action
   Future<void> _send() async {
     final Ad ad = Ad();
@@ -194,7 +197,7 @@ abstract class _InserirAnucioStore with Store {
       await AdRepository().save(ad);
       // savedAd = true;
     } catch (e) {
-      // error = e;
+      error = e;
     }
     loading = false;
   }

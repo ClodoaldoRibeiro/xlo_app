@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/screens/inseriranucio/components/category_field.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
+import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
 
 import 'components/cep_field.dart';
@@ -41,90 +42,116 @@ class InserirAnucioScreen extends StatelessWidget {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
             elevation: 8,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                /* Componente para ixibir as imagens. Ele recebe um store com a lista de imagens */
-                ImagesField(
-                  anucioStore: _anucioStore,
-                ),
-                Observer(
-                  builder: (context) {
-                    return TextFormField(
-                      onChanged: _anucioStore.setTitle,
-                      decoration: InputDecoration(
-                        labelText: 'Título',
-                        labelStyle: labelStyle,
-                        contentPadding: contentPadding,
-                        errorText: _anucioStore.titleError,
-                      ),
-                    );
-                  },
-                ),
-                Observer(
-                  builder: (context) {
-                    return TextFormField(
-                      onChanged: _anucioStore.setDescription,
-                      decoration: InputDecoration(
-                          labelText: 'Descrição',
-                          labelStyle: labelStyle,
-                          contentPadding: contentPadding,
-                          errorText: _anucioStore.descriptionError),
-                      maxLines: null,
-                    );
-                  },
-                ),
-                CategoryField(anucioStore: _anucioStore),
-                CEPField(_anucioStore),
-                Observer(
-                  builder: (context) {
-                    return TextFormField(
-                      onChanged: _anucioStore.setPrice,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        errorText: _anucioStore.priceError,
-                        labelText: 'Preço',
-                        labelStyle: labelStyle,
-                        contentPadding: contentPadding,
-                        prefixText: 'R\$ ',
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        RealInputFormatter(centavos: true),
-                      ],
-                    );
-                  },
-                ),
-                HidePhoneField(
-                  anucioStore: _anucioStore,
-                ),
-                SizedBox(
-                  height: 20,
-                ),
-                Observer(
-                  builder: (context) {
-                    return SizedBox(
-                      height: 50,
-                      child: GestureDetector(
-                        onTap: _anucioStore.invalidSendPressed,
-                        child: RaisedButton(
-                          child: Text(
-                            'Enviar',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          textColor: Colors.white,
-                          color: Colors.orange,
-                          disabledColor: Colors.orange.withAlpha(120),
-                          materialTapTargetSize:
-                              MaterialTapTargetSize.shrinkWrap,
-                          onPressed: _anucioStore.sendPressed,
+            child: Observer(
+              builder: (context) {
+                if (_anucioStore.loading)
+                  return Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      children: [
+                        Text(
+                          'Salvando Anúncio',
+                          style: TextStyle(fontSize: 18, color: Colors.purple),
                         ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        CircularProgressIndicator(
+                          valueColor: AlwaysStoppedAnimation(Colors.purple),
+                        )
+                      ],
+                    ),
+                  );
+                else
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      /* Componente para ixibir as imagens. Ele recebe um store com a lista de imagens */
+                      ImagesField(
+                        anucioStore: _anucioStore,
                       ),
-                    );
-                  },
-                ),
-              ],
+                      Observer(
+                        builder: (context) {
+                          return TextFormField(
+                            onChanged: _anucioStore.setTitle,
+                            decoration: InputDecoration(
+                              labelText: 'Título',
+                              labelStyle: labelStyle,
+                              contentPadding: contentPadding,
+                              errorText: _anucioStore.titleError,
+                            ),
+                          );
+                        },
+                      ),
+                      Observer(
+                        builder: (context) {
+                          return TextFormField(
+                            onChanged: _anucioStore.setDescription,
+                            decoration: InputDecoration(
+                                labelText: 'Descrição',
+                                labelStyle: labelStyle,
+                                contentPadding: contentPadding,
+                                errorText: _anucioStore.descriptionError),
+                            maxLines: null,
+                          );
+                        },
+                      ),
+                      CategoryField(anucioStore: _anucioStore),
+                      CEPField(_anucioStore),
+                      Observer(
+                        builder: (context) {
+                          return TextFormField(
+                            onChanged: _anucioStore.setPrice,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              errorText: _anucioStore.priceError,
+                              labelText: 'Preço',
+                              labelStyle: labelStyle,
+                              contentPadding: contentPadding,
+                              prefixText: 'R\$ ',
+                            ),
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly,
+                              RealInputFormatter(centavos: true),
+                            ],
+                          );
+                        },
+                      ),
+                      HidePhoneField(
+                        anucioStore: _anucioStore,
+                      ),
+                      XLOErrorBox(
+                        message: _anucioStore.error,
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Observer(
+                        builder: (context) {
+                          return SizedBox(
+                            height: 50,
+                            child: GestureDetector(
+                              onTap: _anucioStore.invalidSendPressed,
+                              child: RaisedButton(
+                                child: Text(
+                                  'Enviar',
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                textColor: Colors.white,
+                                color: Colors.orange,
+                                disabledColor: Colors.orange.withAlpha(120),
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                onPressed: _anucioStore.sendPressed,
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
+                  );
+              },
             ),
           ),
         ),
