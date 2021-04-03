@@ -6,7 +6,7 @@ class HomeStore = _HomeStore with _$HomeStore;
 
 abstract class _HomeStore with Store {
   @observable
-  String search;
+  String search = "";
 
   @action
   void setSearch(valeu) {
