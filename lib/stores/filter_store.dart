@@ -19,7 +19,7 @@ abstract class _FilterStore with Store {
   }
 
   @observable
-  int minPrice = 200;
+  int minPrice;
 
   @action
   void setMinPrice(int valeu) {
@@ -28,7 +28,7 @@ abstract class _FilterStore with Store {
   }
 
   @observable
-  int maxPrice = 300;
+  int maxPrice;
 
   @action
   void setMaxPrice(int valeu) {
@@ -43,7 +43,7 @@ abstract class _FilterStore with Store {
           : null;
 
   @observable
-  int vendorType;
+  int vendorType = VENDOR_TYPE_PARTICULAR;
 
   @action
   void selectVendorType(int value) => vendorType = value;
