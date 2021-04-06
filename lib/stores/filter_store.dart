@@ -14,4 +14,28 @@ abstract class _FilterStore with Store {
   void setOrderBy(OrderBy valeu) {
     this.orderBy = valeu;
   }
+
+  @observable
+  int minPrice = 200;
+
+  @action
+  void setMinPrice(int valeu) {
+    minPrice = valeu;
+    print(valeu);
+  }
+
+  @observable
+  int maxPrice = 300;
+
+  @action
+  void setMaxPrice(int valeu) {
+    maxPrice = valeu;
+    print(maxPrice);
+  }
+
+  @computed
+  String get priceError =>
+      maxPrice != null && minPrice != null && maxPrice < minPrice
+          ? 'Faixa de preço inválida'
+          : null;
 }

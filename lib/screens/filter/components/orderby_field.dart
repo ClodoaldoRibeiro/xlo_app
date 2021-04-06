@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/screens/filter/section_title.dart';
+import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/stores/filter_store.dart';
 
 class OrderByField extends StatelessWidget {
@@ -21,9 +22,9 @@ class OrderByField extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 24),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
-            color: filter.orderBy == opcao ? Colors.purple : Colors.transparent,
+            color: filter.orderBy == opcao ? AppColors.COR_PRIMARIA : Colors.transparent,
             border: Border.all(
-              color: filter.orderBy == opcao ? Colors.purple : Colors.grey,
+              color: filter.orderBy == opcao ? AppColors.COR_PRIMARIA : Colors.grey,
             ),
           ),
           child: Text(
@@ -39,7 +40,7 @@ class OrderByField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SectionTitle('Ordernar por'),
+        SectionTitle('Ordenação por'),
         Observer(builder: (_) {
           return Row(
             children: [

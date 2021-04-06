@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:xlo_app/screens/filter/components/orderby_field.dart';
+import 'package:xlo_app/screens/filter/components/price_range_field.dart';
 import 'package:xlo_app/stores/filter_store.dart';
 
 class FilterScreen extends StatelessWidget {
@@ -18,15 +19,16 @@ class FilterScreen extends StatelessWidget {
           child: Card(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-            margin: const EdgeInsets.symmetric(horizontal: 32),
+            margin: const EdgeInsets.symmetric(horizontal: 24),
             elevation: 10,
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 32, vertical: 10),
+              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   OrderByField(filter: filter),
+                  PriceRangeField(filter: filter),
                 ],
               ),
             ),
