@@ -11,7 +11,7 @@ class XLORaiseButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 44,
+      height: 46,
       margin: EdgeInsets.only(top: 26, bottom: 12),
       child: RaisedButton(
         shape: RoundedRectangleBorder(
