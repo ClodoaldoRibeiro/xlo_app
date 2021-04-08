@@ -19,6 +19,7 @@ abstract class _FilterStore with Store {
     this.vendorType = VENDOR_TYPE_PARTICULAR,
   });
 
+
   @observable
   OrderBy orderBy = OrderBy.PRICE;
 
