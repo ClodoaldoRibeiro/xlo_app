@@ -1,27 +1,32 @@
 import 'package:mobx/mobx.dart';
-import 'package:xlo_app/models/category.dart';
+import 'package:xlo_app/models/ad.dart';
 import 'package:xlo_app/repositories/ad_repository.dart';
 import 'package:xlo_app/stores/filter_store.dart';
+import 'package:xlo_app/models/category.dart';
 
 part 'home_store.g.dart';
 
 class HomeStore = _HomeStore with _$HomeStore;
 
 abstract class _HomeStore with Store {
-
   _HomeStore() {
     autorun((_) async {
       try {
-        final newAds = await AdRepository().getHomeAdList(
-          filter: filter,
-          search: search,
-          category: category,
-        );
+        setLoading(true);
+        final newAds = await AdRepository()
+            .getHomeAdList(filter: filter, search: search, category: category);
+        print(newAds);
+        adList.clear();
+        adList.addAll(newAds);
+        setError(null);
+        setLoading(false);
       } catch (e) {
+        setError(e);
       }
     });
   }
 
+  ObservableList<Ad> adList = ObservableList<Ad>();
 
   @observable
   String search = "";
@@ -29,6 +34,22 @@ abstract class _HomeStore with Store {
   @action
   void setSearch(valeu) {
     this.search = valeu;
+  }
+
+  @observable
+  String error = null;
+
+  @action
+  void setError(valeu) {
+    this.error = valeu;
+  }
+
+  @observable
+  bool loading;
+
+  @action
+  void setLoading(valeu) {
+    this.loading = valeu;
   }
 
   @observable

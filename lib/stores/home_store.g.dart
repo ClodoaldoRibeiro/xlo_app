@@ -24,6 +24,36 @@ mixin _$HomeStore on _HomeStore, Store {
     });
   }
 
+  final _$errorAtom = Atom(name: '_HomeStore.error');
+
+  @override
+  String get error {
+    _$errorAtom.reportRead();
+    return super.error;
+  }
+
+  @override
+  set error(String value) {
+    _$errorAtom.reportWrite(value, super.error, () {
+      super.error = value;
+    });
+  }
+
+  final _$loadingAtom = Atom(name: '_HomeStore.loading');
+
+  @override
+  bool get loading {
+    _$loadingAtom.reportRead();
+    return super.loading;
+  }
+
+  @override
+  set loading(bool value) {
+    _$loadingAtom.reportWrite(value, super.loading, () {
+      super.loading = value;
+    });
+  }
+
   final _$categoryAtom = Atom(name: '_HomeStore.category');
 
   @override
@@ -68,6 +98,28 @@ mixin _$HomeStore on _HomeStore, Store {
   }
 
   @override
+  void setError(dynamic valeu) {
+    final _$actionInfo =
+        _$_HomeStoreActionController.startAction(name: '_HomeStore.setError');
+    try {
+      return super.setError(valeu);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void setLoading(dynamic valeu) {
+    final _$actionInfo =
+        _$_HomeStoreActionController.startAction(name: '_HomeStore.setLoading');
+    try {
+      return super.setLoading(valeu);
+    } finally {
+      _$_HomeStoreActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
   void setCategory(dynamic valeu) {
     final _$actionInfo = _$_HomeStoreActionController.startAction(
         name: '_HomeStore.setCategory');
@@ -93,6 +145,8 @@ mixin _$HomeStore on _HomeStore, Store {
   String toString() {
     return '''
 search: ${search},
+error: ${error},
+loading: ${loading},
 category: ${category},
 filter: ${filter}
     ''';
