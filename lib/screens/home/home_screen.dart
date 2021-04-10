@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
                           height: 8,
                         ),
                         Text(
-                          'Ocorreu um erro!' ,
+                          'Ocorreu um erro!',
                           textAlign: TextAlign.center,
                           style: TextStyle(
                             color: Colors.white,
@@ -62,6 +62,7 @@ class HomeScreen extends StatelessWidget {
                   return XLOEmptyCard('Nenhum anúncio encontrado.');
 
                 return ListView.builder(
+                  padding: EdgeInsets.symmetric(vertical: 8.0, horizontal: 5.0),
                   // controller: scrollController,
                   itemCount: homeStore.adList.length,
                   itemBuilder: (_, index) {

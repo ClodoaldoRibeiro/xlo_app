@@ -14,7 +14,7 @@ abstract class _HomeStore with Store {
       try {
         setLoading(true);
         final newAds = await AdRepository()
-            .getHomeAdList(filter: filter, search: search, category: category);
+            .getHomeAdList(filter: filter, search: search, category: category, page: 1);
         print(newAds);
         adList.clear();
         adList.addAll(newAds);

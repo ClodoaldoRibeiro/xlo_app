@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xlo_app/models/ad.dart';
 
@@ -26,12 +27,12 @@ class AdTile extends StatelessWidget {
               SizedBox(
                 height: 135,
                 width: 127,
-                // child: CachedNetworkImage(
-                //   imageUrl: ad.images.isEmpty
-                //       ? 'https://static.thenounproject.com/png/194055-200.png'
-                //       : ad.images.first,
-                //   fit: BoxFit.cover,
-                // ),
+                child: CachedNetworkImage(
+                  imageUrl: ad.images.isEmpty
+                      ? 'https://static.thenounproject.com/png/194055-200.png'
+                      : ad.images.first,
+                  fit: BoxFit.cover,
+                ),
               ),
               Expanded(
                 child: Padding(
