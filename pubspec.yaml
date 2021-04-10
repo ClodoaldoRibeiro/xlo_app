@@ -42,7 +42,9 @@ dependencies:
   intl: ^0.16.1
   flutter_localizations:
       sdk: flutter
-
+  carousel_pro: ^1.0.0
+  readmore: ^1.0.1
+  url_launcher: ^5.7.10
 
 
 
