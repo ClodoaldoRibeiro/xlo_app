@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_pro/carousel_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:xlo_app/models/ad.dart';
+import 'package:xlo_app/screens/ad/components/description_panel.dart';
+import 'package:xlo_app/screens/ad/components/location_panel.dart';
 import 'package:xlo_app/screens/ad/components/main_panel.dart';
+import 'package:xlo_app/screens/ad/components/user_panel.dart';
 
 class AdScreen extends StatelessWidget {
   AdScreen(this.ad);
@@ -25,7 +28,7 @@ class AdScreen extends StatelessWidget {
       body: ListView(
         children: [
           Container(
-            padding: const EdgeInsets.symmetric(vertical: 2.5),
+            // padding: const EdgeInsets.symmetric(vertical: 2.5),
             height: 280,
             color: Colors.grey[500],
             child: Carousel(
@@ -47,11 +50,11 @@ class AdScreen extends StatelessWidget {
               children: [
                 MainPanel(ad),
                 Divider(color: Colors.grey[500]),
-                // DescriptionPanel(ad),
+                DescriptionPanel(ad),
                 Divider(color: Colors.grey[500]),
-                // LocationPanel(ad),
+                LocationPanel(ad),
                 Divider(color: Colors.grey[500]),
-                // UserPanel(ad),
+                UserPanel(ad),
                 SizedBox(
                   height: ad.status == AdStatus.PENDING ? 16 : 120,
                 ),
