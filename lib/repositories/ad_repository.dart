@@ -21,7 +21,7 @@ class AdRepository {
 
       queryBuilder.includeObject([keyAdOwner, keyAdCategory]);
 
-      // queryBuilder.setAmountToSkip(page * 10);
+       queryBuilder.setAmountToSkip(page * 10);
        queryBuilder.setLimit(10);
 
       queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);

@@ -13,11 +13,9 @@ abstract class _HomeStore with Store {
     autorun((_) async {
       try {
         setLoading(true);
-        final newAds = await AdRepository()
-            .getHomeAdList(filter: filter, search: search, category: category, page: 1);
-        print(newAds);
-        adList.clear();
-        adList.addAll(newAds);
+        final newAds = await AdRepository().getHomeAdList(
+            filter: filter, search: search, category: category, page: page);
+        addNewAds(newAds);
         setError(null);
         setLoading(false);
       } catch (e) {
@@ -34,6 +32,7 @@ abstract class _HomeStore with Store {
   @action
   void setSearch(valeu) {
     this.search = valeu;
+    resetPage();
   }
 
   @observable
@@ -58,6 +57,7 @@ abstract class _HomeStore with Store {
   @action
   void setCategory(valeu) {
     this.category = valeu;
+    resetPage();
   }
 
   @observable
@@ -68,5 +68,36 @@ abstract class _HomeStore with Store {
   @action
   void setFilter(valeu) {
     this.filter = valeu;
+    resetPage();
   }
+
+  @observable
+  int page = 0;
+
+  @observable
+  bool lastPage = false;
+
+  @action
+  void loadNextPage() {
+    page++;
+  }
+
+  void resetPage() {
+    page = 0;
+    adList.clear();
+    lastPage = false;
+  }
+
+  @computed
+  int get itemCount => lastPage ? adList.length : adList.length + 1;
+
+  @action
+  void addNewAds(List<Ad> newAds) {
+    if (newAds.length < 10) lastPage = true;
+    adList.addAll(newAds);
+  }
+
+
+  @computed
+  bool get showProgress => loading && adList.isEmpty;
 }
