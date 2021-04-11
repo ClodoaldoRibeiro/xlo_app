@@ -28,10 +28,10 @@ abstract class _MyAdsStore with Store {
     final user = GetIt.I<UserManagerStore>().userModel;
 
     try {
-      // loading = true;
+      loading = true;
       allAds = await AdRepository().getMyAds(user);
       print(allAds);
-      //loading = false;
+      loading = false;
     } catch (e) {}
   }
 

@@ -11,7 +11,6 @@ class MyAdsScreen extends StatefulWidget {
 
 class _MyAdsScreenState extends State<MyAdsScreen>
     with SingleTickerProviderStateMixin {
-
   final MyAdsStore store = MyAdsStore();
 
   TabController tabController;
@@ -42,27 +41,38 @@ class _MyAdsScreenState extends State<MyAdsScreen>
           ],
         ),
       ),
-      body: TabBarView(
-        controller: tabController,
-        children: [
-          Observer(builder: (_) {
-            if (store.activeAds.isEmpty)
-              return XLOEmptyCard('Você não possui nenhum anúncio ativo.');
-
-            return ListView.builder(
-              itemCount: store.activeAds.length,
-              itemBuilder: (_, index) {
-                return ActiveTile(store.activeAds[index], store);
-              },
+      body: Observer(
+        builder: (context) {
+          if (store.loading)
+            return Center(
+              child: CircularProgressIndicator(
+                valueColor: AlwaysStoppedAnimation(Colors.white),
+              ),
             );
-          }),
-          Container(
-            color: Colors.greenAccent,
-          ),
-          Container(
-            color: Colors.blueAccent,
-          ),
-        ],
+
+          return TabBarView(
+            controller: tabController,
+            children: [
+              Observer(builder: (_) {
+                if (store.activeAds.isEmpty)
+                  return XLOEmptyCard('Você não possui nenhum anúncio ativo.');
+
+                return ListView.builder(
+                  itemCount: store.activeAds.length,
+                  itemBuilder: (_, index) {
+                    return ActiveTile(store.activeAds[index], store);
+                  },
+                );
+              }),
+              Container(
+                color: Colors.greenAccent,
+              ),
+              Container(
+                color: Colors.blueAccent,
+              ),
+            ],
+          );
+        },
       ),
     );
   }

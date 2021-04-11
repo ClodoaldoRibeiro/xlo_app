@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xlo_app/models/ad.dart';
+import 'package:xlo_app/screens/ad/ad_screen.dart';
 import 'package:xlo_app/stores/myads_store.dart';
 import 'package:xlo_app/helper/extension.dart';
 
@@ -10,10 +11,19 @@ class ActiveTile extends StatelessWidget {
   final Ad ad;
   final MyAdsStore store;
 
+  final List<MenuChoice> choices = [
+    MenuChoice(index: 0, title: 'Editar', iconData: Icons.edit),
+    MenuChoice(index: 1, title: 'Já vendi', iconData: Icons.thumb_up),
+    MenuChoice(index: 2, title: 'Excluir', iconData: Icons.delete)
+  ];
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => AdScreen(ad)));
+      },
       child: Card(
         clipBehavior: Clip.antiAlias,
         elevation: 4,
@@ -58,10 +68,68 @@ class ActiveTile extends StatelessWidget {
                   ),
                 ),
               ),
+              Column(
+                children: [
+                  PopupMenuButton<MenuChoice>(
+                    onSelected: (choice) {
+                      switch (choice.index) {
+                        case 0:
+                          // editAd(context);
+                          break;
+                        case 1:
+                          //  soldAd(context);
+                          break;
+                        case 2:
+                          //  deleteAd(context);
+                          break;
+                      }
+                    },
+                    icon: Icon(
+                      Icons.more_vert,
+                      size: 20,
+                      color: Colors.purple,
+                    ),
+                    itemBuilder: (_) {
+                      return choices
+                          .map(
+                            (choice) => PopupMenuItem<MenuChoice>(
+                              value: choice,
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    choice.iconData,
+                                    size: 20,
+                                    color: Colors.purple,
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text(
+                                    choice.title,
+                                    style: TextStyle(
+                                      fontWeight: FontWeight.w400,
+                                      color: Colors.purple,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
+                          .toList();
+                    },
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
   }
+}
+
+class MenuChoice {
+  MenuChoice({this.index, this.title, this.iconData});
+
+  final int index;
+  final String title;
+  final IconData iconData;
 }
