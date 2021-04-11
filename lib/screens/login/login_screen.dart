@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:get_it/get_it.dart';
+import 'package:mobx/mobx.dart';
 import 'package:xlo_app/screens/retrieve/retrieve_account_screen.dart';
 import 'package:xlo_app/screens/signup/signup_screen.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
@@ -8,9 +10,25 @@ import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/screens/widgets/xlo_icon_button.dart';
 import 'package:xlo_app/screens/widgets/xlo_raise_button.dart';
 import 'package:xlo_app/stores/login_store.dart';
+import 'package:xlo_app/stores/user_manager_store.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   LoginStore _loginStore = LoginStore();
+  final UserManagerStore userManagerStore = GetIt.I<UserManagerStore>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    when((_) => userManagerStore.userModel != null, () {
+      Navigator.of(context).pop(true);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

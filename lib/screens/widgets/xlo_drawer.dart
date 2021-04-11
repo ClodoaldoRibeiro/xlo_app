@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:xlo_app/screens/login/login_screen.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
@@ -34,9 +35,20 @@ class XLODrawer extends StatelessWidget {
 class _XLODrawerSection extends StatelessWidget {
   /* Pega a instância unica de PageStore*/
   PageStore _pageStore = GetIt.I<PageStore>();
+  final UserManagerStore userManagerStore = GetIt.I<UserManagerStore>();
 
   @override
   Widget build(BuildContext context) {
+    Future<void> verifyLoginAndSetPage(int page) async {
+      if (userManagerStore.isLoggedIn) {
+        _pageStore.setPage(page);
+      } else {
+        final result = await Navigator.of(context)
+            .push(MaterialPageRoute(builder: (_) => LoginScreen()));
+        if (result != null && result) _pageStore.setPage(page);
+      }
+    }
+
     return Column(
       children: [
         _XLODrawerTile(
@@ -51,14 +63,14 @@ class _XLODrawerSection extends StatelessWidget {
             title: 'Inserir Anúncio',
             iconData: Icons.edit,
             onTap: () {
-              _pageStore.setPage(1);
+              verifyLoginAndSetPage(1);
             },
             highLighted: _pageStore.page == 1),
         _XLODrawerTile(
           title: 'Chat',
           iconData: Icons.chat,
           onTap: () {
-            _pageStore.setPage(2);
+            verifyLoginAndSetPage(2);
           },
           highLighted: _pageStore.page == 2,
         ),
@@ -66,7 +78,7 @@ class _XLODrawerSection extends StatelessWidget {
           title: 'Favoritos',
           iconData: Icons.favorite,
           onTap: () {
-            _pageStore.setPage(3);
+            verifyLoginAndSetPage(3);
           },
           highLighted: _pageStore.page == 3,
         ),
@@ -74,18 +86,39 @@ class _XLODrawerSection extends StatelessWidget {
           title: 'Minha Conta',
           iconData: Icons.person,
           onTap: () {
-            _pageStore.setPage(4);
+            verifyLoginAndSetPage(4);
           },
           highLighted: _pageStore.page == 4,
         ),
-        Divider(),
-        ListTile(
-          leading: Icon(Icons.logout),
-          title: Text(
-            "Sair",
-            style:
-                TextStyle(fontWeight: FontWeight.w700, color: Colors.black54),
-          ),
+        Observer(
+          builder: (context) {
+            if (userManagerStore.userModel == null) {
+              return Container();
+            }
+            return Column(
+              children: [
+                Divider(),
+                GestureDetector(
+                  onTap: () async {
+                    await userManagerStore.logout();
+
+                    if (userManagerStore.userModel == null) {
+                      await Navigator.of(context).push(
+                          MaterialPageRoute(builder: (_) => LoginScreen()));
+                    }
+                  },
+                  child: ListTile(
+                    leading: Icon(Icons.logout),
+                    title: Text(
+                      "Sair",
+                      style: TextStyle(
+                          fontWeight: FontWeight.w700, color: Colors.black54),
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ],
     );
@@ -164,34 +197,38 @@ class _XLODrawerHeader extends StatelessWidget {
               width: 20,
             ),
             Expanded(
-              child: Column(
-                //Alinhamento da Coluna
-                crossAxisAlignment: CrossAxisAlignment.start,
-                // Alinhamento da Horizontal
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                      _userManagerStore.isLoggedIn
-                          ? _userManagerStore.userModel.nome
-                          : "Acesse sua conta agora",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                      )),
-                  SizedBox(
-                    height: heightHeader * 0.08,
-                  ),
-                  Text(
-                      _userManagerStore.isLoggedIn
-                          ? _userManagerStore.userModel.email
-                          : 'Clique aqui',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                      ))
-                ],
+              child: Observer(
+                builder: (context) {
+                  return Column(
+                    //Alinhamento da Coluna
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    // Alinhamento da Horizontal
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                          _userManagerStore.isLoggedIn
+                              ? _userManagerStore.userModel.nome
+                              : "Acesse sua conta agora",
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                          )),
+                      SizedBox(
+                        height: heightHeader * 0.08,
+                      ),
+                      Text(
+                          _userManagerStore.isLoggedIn
+                              ? _userManagerStore.userModel.email
+                              : 'Clique aqui',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ))
+                    ],
+                  );
+                },
               ),
             ),
           ],
