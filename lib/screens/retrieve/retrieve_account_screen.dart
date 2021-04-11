@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/screens/signup/components/field_title.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
+import 'package:xlo_app/screens/widgets/xlo_divider.dart';
 import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/screens/widgets/xlo_raise_button.dart';
 import 'package:xlo_app/screens/widgets/xlo_success_box.dart';
@@ -114,9 +115,7 @@ class RetrieveAccount extends StatelessWidget {
                                       : null);
                             },
                           ),
-                          Divider(
-                            color: AppColors.COR_PRIMARIA,
-                          ),
+                          XLODivider(),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Wrap(

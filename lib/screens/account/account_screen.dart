@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:xlo_app/screens/myads/myads_screen.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
 import 'package:xlo_app/stores/user_manager_store.dart';
@@ -63,10 +64,10 @@ class AccountScreen extends StatelessWidget {
                     ),
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  // onTap: () {
-                  //   Navigator.of(context)
-                  //       .push(MaterialPageRoute(builder: (_) => MyAdsScreen()));
-                  // },
+                  onTap: () {
+                    Navigator.of(context)
+                        .push(MaterialPageRoute(builder: (_) => MyAdsScreen()));
+                  },
                 ),
                 ListTile(
                   title: Text(

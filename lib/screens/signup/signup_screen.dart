@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
+import 'package:xlo_app/screens/widgets/xlo_divider.dart';
 import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/screens/widgets/xlo_raise_button.dart';
 import 'package:xlo_app/stores/signup_store.dart';
@@ -154,9 +155,7 @@ class SignUpScreen extends StatelessWidget {
                                     : Text("Cadastrar-se"),
                                 pressed: _signupStore.signUpPressed);
                           }),
-                          Divider(
-                            color: AppColors.COR_PRIMARIA,
-                          ),
+                          XLODivider(),
                           Padding(
                             padding: const EdgeInsets.symmetric(vertical: 8),
                             child: Wrap(

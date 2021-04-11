@@ -6,6 +6,7 @@ import 'package:mobx/mobx.dart';
 import 'package:xlo_app/screens/retrieve/retrieve_account_screen.dart';
 import 'package:xlo_app/screens/signup/signup_screen.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
+import 'package:xlo_app/screens/widgets/xlo_divider.dart';
 import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/screens/widgets/xlo_icon_button.dart';
 import 'package:xlo_app/screens/widgets/xlo_raise_button.dart';
@@ -166,10 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             : Text("Entrar"),
                         pressed: _loginStore.loginPressed);
                   }),
-                  Divider(
-                    color: AppColors.COR_PRIMARIA,
-                  ),
-
+                  XLODivider(),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Wrap(

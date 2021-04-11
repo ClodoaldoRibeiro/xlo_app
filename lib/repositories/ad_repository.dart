@@ -21,8 +21,8 @@ class AdRepository {
 
       queryBuilder.includeObject([keyAdOwner, keyAdCategory]);
 
-       queryBuilder.setAmountToSkip(page * 10);
-       queryBuilder.setLimit(10);
+      queryBuilder.setAmountToSkip(page * 10);
+      queryBuilder.setLimit(10);
 
       queryBuilder.whereEqualTo(keyAdStatus, AdStatus.ACTIVE.index);
 
@@ -155,6 +155,29 @@ class AdRepository {
       return parseImages;
     } catch (e) {
       return Future.error('Falha ao salvar imagens');
+    }
+  }
+
+  Future<List<Ad>> getMyAds(UserModel user) async {
+    //  final currentUser = ParseUser('', '', '')..set(keyUserId, user.id);
+
+    final currentUser = ParseUser(user.nome, user.senha, user.email)
+      ..set(keyUserId, user.id);
+
+    final queryBuilder = QueryBuilder<ParseObject>(ParseObject(keyAdTable));
+
+    queryBuilder.setLimit(100);
+    queryBuilder.orderByDescending(keyAdCreatedAt);
+    queryBuilder.whereEqualTo(keyAdOwner, currentUser.toPointer());
+    queryBuilder.includeObject([keyAdCategory, keyAdOwner]);
+
+    final response = await queryBuilder.query();
+    if (response.success && response.results != null) {
+      return response.results.map((po) => Ad.fromParse(po)).toList();
+    } else if (response.success && response.results == null) {
+      return [];
+    } else {
+      return Future.error(ParseErrors.getDescription(response.error.code));
     }
   }
 }
