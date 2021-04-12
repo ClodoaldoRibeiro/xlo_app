@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:xlo_app/screens/myads/components/active_tile.dart';
+import 'package:xlo_app/screens/myads/components/pending_tile.dart';
+import 'package:xlo_app/screens/myads/components/sold_tile.dart';
 import 'package:xlo_app/screens/widgets/xlo_empty_card.dart';
 import 'package:xlo_app/stores/myads_store.dart';
 
@@ -64,12 +66,30 @@ class _MyAdsScreenState extends State<MyAdsScreen>
                   },
                 );
               }),
-              Container(
-                color: Colors.greenAccent,
-              ),
-              Container(
-                color: Colors.blueAccent,
-              ),
+              Observer(builder: (_) {
+                if (store.pendingAds.isEmpty)
+                  return XLOEmptyCard(
+                      'Você não possui nenhum anúncio pendente.');
+
+                return ListView.builder(
+                  itemCount: store.pendingAds.length,
+                  itemBuilder: (_, index) {
+                    return PendingTile(store.pendingAds[index]);
+                  },
+                );
+              }),
+              Observer(builder: (_) {
+                if (store.soldAds.isEmpty)
+                  return XLOEmptyCard(
+                      'Você não possui nenhum anúncio vendido.');
+
+                return ListView.builder(
+                  itemCount: store.soldAds.length,
+                  itemBuilder: (_, index) {
+                    return SoldTile(store.soldAds[index], store);
+                  },
+                );
+              }),
             ],
           );
         },
