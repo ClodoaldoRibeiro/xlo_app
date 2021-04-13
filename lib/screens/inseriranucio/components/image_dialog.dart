@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 
 class ImageDialog extends StatelessWidget {
@@ -13,6 +15,11 @@ class ImageDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Image.file(image),
+          image is File
+              ? FileImage(
+                  image,
+                )
+              : NetworkImage(image),
           FlatButton(
             child: const Text('Excluir'),
             textColor: Colors.red,

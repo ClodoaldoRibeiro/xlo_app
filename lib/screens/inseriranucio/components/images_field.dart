@@ -74,7 +74,7 @@ class ImagesField extends StatelessWidget {
                               ? FileImage(
                                   anucioStore.getImage(index),
                                 )
-                              : NetworkImage("" + anucioStore.getImage(index)),
+                              : NetworkImage(anucioStore.getImage(index)),
                         ),
                       ),
                     );

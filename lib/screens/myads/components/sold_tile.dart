@@ -56,7 +56,7 @@ class SoldTile extends StatelessWidget {
                   iconSize: 20,
                   color: Colors.purple,
                   onPressed: () {
-                    // store.deleteAd(ad);
+                    store.deleteAd(ad);
                   },
                 ),
               ],

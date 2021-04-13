@@ -78,10 +78,10 @@ class ActiveTile extends StatelessWidget {
                           editAd(context);
                           break;
                         case 1:
-                          //  soldAd(context);
+                          soldAd(context);
                           break;
                         case 2:
-                          //  deleteAd(context);
+                          deleteAd(context);
                           break;
                       }
                     },
@@ -133,6 +133,56 @@ class ActiveTile extends StatelessWidget {
       ),
     );
     if (success != null && success) store.refresh();
+  }
+
+  void soldAd(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Vendido'),
+        content: Text('Confirmar a venda de ${ad.title}?'),
+        actions: [
+          FlatButton(
+            onPressed: Navigator.of(context).pop,
+            child: Text('Não'),
+            textColor: Colors.purple,
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              store.soldAd(ad);
+            },
+            child: Text('Sim'),
+            textColor: Colors.red,
+          ),
+        ],
+      ),
+    );
+  }
+
+  void deleteAd(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('Excluir'),
+        content: Text('Confirmar a exclusão de ${ad.title}?'),
+        actions: [
+          FlatButton(
+            onPressed: Navigator.of(context).pop,
+            child: Text('Não'),
+            textColor: Colors.purple,
+          ),
+          FlatButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              store.deleteAd(ad);
+            },
+            child: Text('Sim'),
+            textColor: Colors.red,
+          ),
+        ],
+      ),
+    );
   }
 }
 
