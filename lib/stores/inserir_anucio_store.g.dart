@@ -251,7 +251,7 @@ mixin _$InserirAnucioStore on _InserirAnucioStore, Store {
   }
 
   @override
-  File getImage(dynamic index) {
+  dynamic getImage(dynamic index) {
     final _$actionInfo = _$_InserirAnucioStoreActionController.startAction(
         name: '_InserirAnucioStore.getImage');
     try {

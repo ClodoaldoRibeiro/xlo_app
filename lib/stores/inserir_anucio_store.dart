@@ -14,6 +14,23 @@ part 'inserir_anucio_store.g.dart';
 class InserirAnucioStore = _InserirAnucioStore with _$InserirAnucioStore;
 
 abstract class _InserirAnucioStore with Store {
+
+  _InserirAnucioStore(this.ad) {
+    title = ad.title ?? '';
+    description = ad.description ?? '';
+    _imgens = ad.images.asObservable();
+    category = ad.category;
+    priceText = ad.price?.toStringAsFixed(2) ?? '';
+    hidePhone = ad.hidePhone;
+
+    if (ad.address != null)
+      cepStore = CepStore(ad.address.cep);
+    else
+      cepStore = CepStore(null);
+  }
+
+  final Ad ad;
+
   ObservableList _imgens = ObservableList();
 
   @observable
@@ -42,7 +59,7 @@ abstract class _InserirAnucioStore with Store {
   }
 
   @action
-  File getImage(index) {
+  dynamic getImage(index) {
     return _imgens[index];
   }
 
@@ -113,7 +130,7 @@ abstract class _InserirAnucioStore with Store {
   }
 
   @observable
-  CepStore cepStore = CepStore();
+  CepStore cepStore;
 
   @computed
   Address get address => cepStore.address;
@@ -184,8 +201,6 @@ abstract class _InserirAnucioStore with Store {
 
   @action
   Future<void> _send() async {
-    final Ad ad = Ad();
-
     ad.title = title;
     ad.description = description;
     ad.category = category;

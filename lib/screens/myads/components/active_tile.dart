@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:xlo_app/models/ad.dart';
 import 'package:xlo_app/screens/ad/ad_screen.dart';
+import 'package:xlo_app/screens/inseriranucio/inserir_anucio_screen.dart';
 import 'package:xlo_app/stores/myads_store.dart';
 import 'package:xlo_app/helper/extension.dart';
 
@@ -74,7 +75,7 @@ class ActiveTile extends StatelessWidget {
                     onSelected: (choice) {
                       switch (choice.index) {
                         case 0:
-                          // editAd(context);
+                          editAd(context);
                           break;
                         case 1:
                           //  soldAd(context);
@@ -123,6 +124,15 @@ class ActiveTile extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future<void> editAd(BuildContext context) async {
+    final success = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => InserirAnucioScreen(ad: ad),
+      ),
+    );
+    if (success != null && success) store.refresh();
   }
 }
 

@@ -20,6 +20,7 @@ class CEPField extends StatelessWidget {
           builder: (context) {
             return TextFormField(
               onChanged: cepStore.setCep,
+              initialValue: cepStore.cep,
               keyboardType: TextInputType.number,
               inputFormatters: [
                 FilteringTextInputFormatter.digitsOnly,

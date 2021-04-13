@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
@@ -68,8 +70,11 @@ class ImagesField extends StatelessWidget {
                         child: CircleAvatar(
                           radius: 44,
                           backgroundColor: Colors.transparent,
-                          backgroundImage:
-                              FileImage(anucioStore.getImage(index)),
+                          backgroundImage: anucioStore.getImage(index) is File
+                              ? FileImage(
+                                  anucioStore.getImage(index),
+                                )
+                              : NetworkImage("" + anucioStore.getImage(index)),
                         ),
                       ),
                     );

@@ -4,7 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
+import 'package:xlo_app/models/ad.dart';
 import 'package:xlo_app/screens/inseriranucio/components/category_field.dart';
+import 'package:xlo_app/screens/myads/myads_screen.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
 import 'package:xlo_app/screens/widgets/xlo_error_box.dart';
 import 'package:xlo_app/stores/inserir_anucio_store.dart';
@@ -15,19 +17,38 @@ import 'components/hide_phone_field.dart';
 import 'components/images_field.dart';
 
 class InserirAnucioScreen extends StatefulWidget {
+  InserirAnucioScreen({this.ad});
+
+  final Ad ad;
+
   @override
-  _InserirAnucioScreenState createState() => _InserirAnucioScreenState();
+  _InserirAnucioScreenState createState() => _InserirAnucioScreenState(ad);
 }
 
 class _InserirAnucioScreenState extends State<InserirAnucioScreen> {
-  InserirAnucioStore _anucioStore = InserirAnucioStore();
+  _InserirAnucioScreenState(Ad ad)
+      : editing = ad != null,
+        _anucioStore = InserirAnucioStore(ad ?? Ad());
+
+  final InserirAnucioStore _anucioStore;
+
+  bool editing;
 
   @override
   void initState() {
     super.initState();
 
     when((_) => _anucioStore.savedAd, () {
-      GetIt.I<PageStore>().setPage(0);
+      if (editing)
+        Navigator.of(context).pop(true);
+      else {
+        GetIt.I<PageStore>().setPage(0);
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => MyAdsScreen(initialPage: 1),
+          ),
+        );
+      }
     });
   }
 
@@ -42,11 +63,9 @@ class _InserirAnucioScreenState extends State<InserirAnucioScreen> {
     final contentPadding = const EdgeInsets.fromLTRB(16, 10, 12, 10);
 
     return Scaffold(
-      drawer: XLODrawer(),
+      drawer: editing ? null : XLODrawer(),
       appBar: AppBar(
-        title: Text(
-          "Inserir anúcio",
-        ),
+        title: Text(editing ? 'Editar Anúncio' : 'Criar Anúncio'),
         centerTitle: true,
         elevation: 0,
       ),
@@ -92,6 +111,7 @@ class _InserirAnucioScreenState extends State<InserirAnucioScreen> {
                         builder: (context) {
                           return TextFormField(
                             onChanged: _anucioStore.setTitle,
+                            initialValue: _anucioStore.title,
                             decoration: InputDecoration(
                               labelText: 'Título',
                               labelStyle: labelStyle,
@@ -105,6 +125,7 @@ class _InserirAnucioScreenState extends State<InserirAnucioScreen> {
                         builder: (context) {
                           return TextFormField(
                             onChanged: _anucioStore.setDescription,
+                            initialValue: _anucioStore.description,
                             decoration: InputDecoration(
                                 labelText: 'Descrição',
                                 labelStyle: labelStyle,
@@ -120,6 +141,7 @@ class _InserirAnucioScreenState extends State<InserirAnucioScreen> {
                         builder: (context) {
                           return TextFormField(
                             onChanged: _anucioStore.setPrice,
+                            initialValue: _anucioStore.priceText,
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
                               errorText: _anucioStore.priceError,
