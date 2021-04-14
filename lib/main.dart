@@ -4,6 +4,7 @@ import 'package:get_it/get_it.dart';
 import 'package:xlo_app/screens/base/base_screen.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/stores/category_store.dart';
+import 'package:xlo_app/stores/favorite_store.dart';
 import 'package:xlo_app/stores/home_store.dart';
 import 'package:xlo_app/stores/page_store.dart';
 import 'package:xlo_app/stores/user_manager_store.dart';
@@ -15,6 +16,7 @@ void setupLocators() {
   GetIt.I.registerSingleton(HomeStore());
   GetIt.I.registerSingleton(UserManagerStore());
   GetIt.I.registerSingleton(CategoryStore());
+  GetIt.I.registerSingleton(FavoriteStore());
 }
 
 void main() async {

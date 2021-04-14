@@ -11,6 +11,7 @@ class AccountScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    double heightHeader = size.height * 0.25;
 
     return Scaffold(
       appBar: AppBar(
@@ -34,13 +35,22 @@ class AccountScreen extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.center,
-            height: size.height * 0.25,
+            height: heightHeader,
             color: AppColors.COR_PRIMARIA,
             child: Align(
               alignment: Alignment.center,
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
+
+                  Icon(
+                    Icons.account_circle,
+                    size: heightHeader * 0.45,
+                    color: Colors.white,
+                  ),
+                  const SizedBox(
+                    height: 15,
+                  ),
                   Observer(builder: (_) {
                     return Text(
                       GetIt.I<UserManagerStore>().userModel.nome,

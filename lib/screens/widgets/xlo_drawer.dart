@@ -165,7 +165,7 @@ class _XLODrawerHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size _size = MediaQuery.of(context).size;
-    double heightHeader = _size.height * 0.20;
+    double heightHeader = _size.height * 0.25;
 
     return GestureDetector(
       onTap: () {
@@ -181,8 +181,8 @@ class _XLODrawerHeader extends StatelessWidget {
       child: Container(
         color: AppColors.COR_PRIMARIA,
         height: heightHeader,
-        padding: const EdgeInsets.symmetric(horizontal: 20),
-        child: Row(
+        padding: const EdgeInsets.symmetric(vertical: 20),
+        child: Column(
           //Alinhamento da Coluna
           crossAxisAlignment: CrossAxisAlignment.center,
           // Alinhamento da Horizontal
@@ -190,18 +190,18 @@ class _XLODrawerHeader extends StatelessWidget {
           children: [
             Icon(
               Icons.account_circle,
-              size: heightHeader * 0.50,
+              size: heightHeader * 0.40,
               color: Colors.white,
             ),
             const SizedBox(
-              width: 20,
+              height: 15,
             ),
             Expanded(
               child: Observer(
                 builder: (context) {
                   return Column(
                     //Alinhamento da Coluna
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     // Alinhamento da Horizontal
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -215,17 +215,18 @@ class _XLODrawerHeader extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                           )),
                       SizedBox(
-                        height: heightHeader * 0.08,
+                        height: 2,
                       ),
                       Text(
-                          _userManagerStore.isLoggedIn
-                              ? _userManagerStore.userModel.email
-                              : 'Clique aqui',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                          ))
+                        _userManagerStore.isLoggedIn
+                            ? _userManagerStore.userModel.email
+                            : 'Clique aqui',
+                        style: TextStyle(
+                          color: Colors.white70,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
                     ],
                   );
                 },
