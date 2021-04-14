@@ -1,11 +1,16 @@
 import 'package:brasil_fields/formatter/telefone_input_formatter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 import 'package:xlo_app/screens/signup/components/field_title.dart';
 import 'package:xlo_app/screens/widgets/xlo_divider.dart';
+import 'package:xlo_app/screens/widgets/xlo_raise_button.dart';
+import 'package:xlo_app/stores/edit_account_store.dart';
 
 class EditAccountScreen extends StatelessWidget {
+  final EditAccountStore store = EditAccountStore();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +45,7 @@ class EditAccountScreen extends StatelessWidget {
                           activeFgColor: Colors.white,
                           inactiveFgColor: Colors.white,
                           initialLabelIndex: 0,
-                          onToggle: (index) {},
+                          onToggle: store.setUserType,
                         );
                       },
                     ),
@@ -51,14 +56,19 @@ class EditAccountScreen extends StatelessWidget {
                       title: 'Nome',
                       subtitle: 'Como aparecerá em seus anúncios.',
                     ),
-                    TextField(
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: 'Exemplo: João S.',
-                        isDense: true,
-                      ),
-                      onChanged: (value) {},
+                    Observer(
+                      builder: (context) {
+                        return TextField(
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: 'Exemplo: João S.',
+                            isDense: true,
+                            errorText: store.nameError,
+                          ),
+                          onChanged: store.setName,
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 16,
@@ -67,18 +77,23 @@ class EditAccountScreen extends StatelessWidget {
                       title: 'Celular',
                       subtitle: 'Proteja sua conta',
                     ),
-                    TextField(
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: '(99) 99999-9999',
-                        isDense: true,
-                      ),
-                      keyboardType: TextInputType.phone,
-                      inputFormatters: [
-                        FilteringTextInputFormatter.digitsOnly,
-                        TelefoneInputFormatter()
-                      ],
-                      onChanged: (value) {},
+                    Observer(
+                      builder: (context) {
+                        return TextField(
+                          decoration: InputDecoration(
+                            border: OutlineInputBorder(),
+                            hintText: '(99) 99999-9999',
+                            isDense: true,
+                            errorText: store.phoneError,
+                          ),
+                          keyboardType: TextInputType.phone,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.digitsOnly,
+                            TelefoneInputFormatter()
+                          ],
+                          onChanged: store.setPhone,
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 16,
@@ -87,14 +102,19 @@ class EditAccountScreen extends StatelessWidget {
                       title: 'Nova senha',
                       subtitle: 'Use letras, números e caracteres especiais',
                     ),
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: "Informe uma nova senha",
-                        border: const OutlineInputBorder(),
-                        isDense: true,
-                      ),
-                      obscureText: true,
-                      onChanged: (value) {},
+                    Observer(
+                      builder: (context) {
+                        return TextField(
+                          decoration: InputDecoration(
+                            hintText: "Informe uma nova senha",
+                            border: const OutlineInputBorder(),
+                            isDense: true,
+                            errorText: store.passError,
+                          ),
+                          obscureText: true,
+                          onChanged: store.setPass1,
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 16,
@@ -110,40 +130,25 @@ class EditAccountScreen extends StatelessWidget {
                         isDense: true,
                       ),
                       obscureText: true,
-                      onChanged: (value) {},
+                      onChanged: store.setPass2,
                     ),
                     const SizedBox(
                       height: 16,
                     ),
                     XLODivider(),
-                    Container(
-                      height: 46,
-                      margin: EdgeInsets.only(top: 4, bottom: 4),
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(22)),
-                        color: Colors.orangeAccent,
-                        child: Text("Salvar"),
-                        textColor: Colors.white,
-                        disabledColor: Colors.orange.withAlpha(120),
-                        onPressed: () {},
-                      ),
+                    Observer(
+                      builder: (context) {
+                        return XLORaiseButton(
+                          child: store.loading
+                              ? CircularProgressIndicator(
+                                  valueColor:
+                                      AlwaysStoppedAnimation(Colors.white),
+                                )
+                              : Text("Salvar"),
+                          pressed: store.savePressed,
+                        );
+                      },
                     ),
-                    Container(
-                      height: 46,
-                      margin: EdgeInsets.only(top: 8, bottom: 12),
-                      child: RaisedButton(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(22)),
-                        color: Colors.redAccent,
-                        child: Text("Sair"),
-                        textColor: Colors.white,
-                        disabledColor: Colors.redAccent.withAlpha(120),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    )
                   ],
                 ),
               ),
