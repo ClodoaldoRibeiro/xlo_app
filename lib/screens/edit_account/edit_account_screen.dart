@@ -34,18 +34,25 @@ class EditAccountScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    LayoutBuilder(
-                      builder: (context, constraints) {
-                        return ToggleSwitch(
-                          minWidth: constraints.biggest.width / 2.01,
-                          labels: ['Particular', 'Profissional'],
-                          cornerRadius: 20,
-                          activeBgColor: Colors.purple,
-                          inactiveBgColor: Colors.grey,
-                          activeFgColor: Colors.white,
-                          inactiveFgColor: Colors.white,
-                          initialLabelIndex: 0,
-                          onToggle: store.setUserType,
+                    Observer(
+                      builder: (context) {
+                        return IgnorePointer(
+                          ignoring: store.loading,
+                          child: LayoutBuilder(
+                            builder: (context, constraints) {
+                              return ToggleSwitch(
+                                minWidth: constraints.biggest.width / 2.01,
+                                labels: ['Particular', 'Profissional'],
+                                cornerRadius: 20,
+                                activeBgColor: Colors.purple,
+                                inactiveBgColor: Colors.grey,
+                                activeFgColor: Colors.white,
+                                inactiveFgColor: Colors.white,
+                                initialLabelIndex: store.userType.index,
+                                onToggle: store.setUserType,
+                              );
+                            },
+                          ),
                         );
                       },
                     ),
@@ -58,7 +65,8 @@ class EditAccountScreen extends StatelessWidget {
                     ),
                     Observer(
                       builder: (context) {
-                        return TextField(
+                        return TextFormField(
+                          enabled: !store.loading,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
@@ -67,6 +75,7 @@ class EditAccountScreen extends StatelessWidget {
                             errorText: store.nameError,
                           ),
                           onChanged: store.setName,
+                          initialValue: store.name,
                         );
                       },
                     ),
@@ -79,7 +88,8 @@ class EditAccountScreen extends StatelessWidget {
                     ),
                     Observer(
                       builder: (context) {
-                        return TextField(
+                        return TextFormField(
+                          enabled: !store.loading,
                           decoration: InputDecoration(
                             border: OutlineInputBorder(),
                             hintText: '(99) 99999-9999',
@@ -92,6 +102,7 @@ class EditAccountScreen extends StatelessWidget {
                             TelefoneInputFormatter()
                           ],
                           onChanged: store.setPhone,
+                          initialValue: store.phone,
                         );
                       },
                     ),
@@ -104,7 +115,8 @@ class EditAccountScreen extends StatelessWidget {
                     ),
                     Observer(
                       builder: (context) {
-                        return TextField(
+                        return TextFormField(
+                          enabled: !store.loading,
                           decoration: InputDecoration(
                             hintText: "Informe uma nova senha",
                             border: const OutlineInputBorder(),
@@ -123,14 +135,19 @@ class EditAccountScreen extends StatelessWidget {
                       title: 'Confirmar a nova senha',
                       subtitle: 'Repita a senha',
                     ),
-                    TextField(
-                      decoration: InputDecoration(
-                        hintText: "Confirme a nova senha",
-                        border: const OutlineInputBorder(),
-                        isDense: true,
-                      ),
-                      obscureText: true,
-                      onChanged: store.setPass2,
+                    Observer(
+                      builder: (context) {
+                        return TextFormField(
+                          enabled: !store.loading,
+                          decoration: InputDecoration(
+                            hintText: "Confirme a nova senha",
+                            border: const OutlineInputBorder(),
+                            isDense: true,
+                          ),
+                          obscureText: true,
+                          onChanged: store.setPass2,
+                        );
+                      },
                     ),
                     const SizedBox(
                       height: 16,

@@ -95,7 +95,7 @@ abstract class _EditAccountStore with Store {
       user.senha = null;
 
     try {
-      // await UserRepository().save(user);
+      await UserRepository().save(user);
       userManagerStore.setUser(user);
     } catch (e) {
       print(e);
@@ -103,5 +103,4 @@ abstract class _EditAccountStore with Store {
 
     loading = false;
   }
-
 }

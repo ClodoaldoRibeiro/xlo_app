@@ -76,4 +76,33 @@ class UserRepository {
       return Future.error(ParseErrors.getDescription(response.error.code));
     }
   }
+
+  Future<void> save(UserModel user) async {
+    final ParseUser parseUser = await ParseUser.currentUser();
+
+    if (parseUser != null) {
+      parseUser.set<String>(keyUserName, user.nome);
+      parseUser.set<String>(keyUserPhone, user.phone);
+      parseUser.set<int>(keyUserType, user.type.index);
+
+      if (user.senha != null) {
+        parseUser.password = user.senha;
+      }
+
+      final response = await parseUser.save();
+
+      if (!response.success)
+        return Future.error(ParseErrors.getDescription(response.error.code));
+
+      if (user.senha != null) {
+        await parseUser.logout();
+
+        final loginResponse =
+            await ParseUser(user.email, user.senha, user.email).login();
+
+        if (!loginResponse.success)
+          return Future.error(ParseErrors.getDescription(response.error.code));
+      }
+    }
+  }
 }
