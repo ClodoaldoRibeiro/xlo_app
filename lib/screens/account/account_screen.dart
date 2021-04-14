@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
+import 'package:xlo_app/screens/edit_account/edit_account_screen.dart';
 import 'package:xlo_app/screens/myads/myads_screen.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
@@ -15,7 +16,17 @@ class AccountScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text("Minha Conta"),
         centerTitle: true,
-        actions: [IconButton(icon: Icon(Icons.edit), onPressed: () {})],
+        actions: [
+          IconButton(
+              icon: Icon(Icons.edit),
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => EditAccountScreen(),
+                  ),
+                );
+              })
+        ],
       ),
       drawer: XLODrawer(),
       backgroundColor: Colors.white,
