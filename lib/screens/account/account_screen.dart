@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:xlo_app/screens/edit_account/edit_account_screen.dart';
+import 'package:xlo_app/screens/favorites/favorites_screen.dart';
 import 'package:xlo_app/screens/myads/myads_screen.dart';
 import 'package:xlo_app/screens/themes/app_colors.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
@@ -99,10 +100,10 @@ class AccountScreen extends StatelessWidget {
                     ),
                   ),
                   trailing: Icon(Icons.keyboard_arrow_right),
-                  // onTap: () {
-                  //   Navigator.of(context).push(MaterialPageRoute(
-                  //       builder: (_) => FavoritesScreen(hideDrawer: true)));
-                  // },
+                  onTap: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (_) => FavoritesScreen(hideDrawer: true)));
+                  },
                 ),
               ],
             ),

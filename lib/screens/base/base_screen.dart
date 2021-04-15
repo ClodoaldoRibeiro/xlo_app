@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:xlo_app/screens/account/account_screen.dart';
+import 'package:xlo_app/screens/favorites/favorites_screen.dart';
 import 'package:xlo_app/screens/home/home_screen.dart';
 import 'package:xlo_app/screens/inseriranucio/inserir_anucio_screen.dart';
 import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
@@ -45,9 +46,8 @@ class _BaseScreenState extends State<BaseScreen> {
             ),
             drawer: XLODrawer(),
           ),
-          Scaffold(
-            appBar: AppBar(title: Text("Favoritos"), centerTitle: true),
-            drawer: XLODrawer(),
+          FavoritesScreen(
+            hideDrawer: false,
           ),
           AccountScreen(),
         ],
