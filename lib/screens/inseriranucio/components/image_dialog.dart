@@ -14,12 +14,7 @@ class ImageDialog extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Image.file(image),
-          image is File
-              ? FileImage(
-                  image,
-                )
-              : NetworkImage(image),
+          image is File ? Image.file(image) : Image.network(image),
           FlatButton(
             child: const Text('Excluir'),
             textColor: Colors.red,

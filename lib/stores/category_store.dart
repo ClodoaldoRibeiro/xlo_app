@@ -1,6 +1,9 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:xlo_app/models/category.dart';
 import 'package:xlo_app/repositories/category_repository.dart';
+
+import 'connectivity_store.dart';
 
 part 'category_store.g.dart';
 
@@ -8,11 +11,17 @@ class CategoryStore = _CategoryStore with _$CategoryStore;
 
 abstract class _CategoryStore with Store {
   ObservableList<Category> categoriesList = ObservableList<Category>();
+  final ConnectivityStore connectivityStore = GetIt.I<ConnectivityStore>();
 
   @observable
   String _erro;
 
   _CategoryStore() {
+    autorun((_) {
+      if (connectivityStore.connected && categoriesList.isEmpty)
+        _loadCategories();
+    });
+
     _loadCategories();
   }
 

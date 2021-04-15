@@ -1,6 +1,8 @@
+import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:xlo_app/models/ad.dart';
 import 'package:xlo_app/repositories/ad_repository.dart';
+import 'package:xlo_app/stores/connectivity_store.dart';
 import 'package:xlo_app/stores/filter_store.dart';
 import 'package:xlo_app/models/category.dart';
 
@@ -11,6 +13,7 @@ class HomeStore = _HomeStore with _$HomeStore;
 abstract class _HomeStore with Store {
   _HomeStore() {
     autorun((_) async {
+      connectivityStore.connected;
       try {
         setLoading(true);
         final newAds = await AdRepository().getHomeAdList(
@@ -23,6 +26,8 @@ abstract class _HomeStore with Store {
       }
     });
   }
+
+  final ConnectivityStore connectivityStore = GetIt.I<ConnectivityStore>();
 
   ObservableList<Ad> adList = ObservableList<Ad>();
 
