@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
 import 'package:mobx/mobx.dart';
 import 'package:xlo_app/screens/account/account_screen.dart';
+import 'package:xlo_app/screens/chat/chat_screen.dart';
 import 'package:xlo_app/screens/favorites/favorites_screen.dart';
 import 'package:xlo_app/screens/home/home_screen.dart';
 import 'package:xlo_app/screens/inseriranucio/inserir_anucio_screen.dart';
@@ -39,13 +40,7 @@ class _BaseScreenState extends State<BaseScreen> {
         children: [
           HomeScreen(), // Home do Aplicativo
           InserirAnucioScreen(),
-          Scaffold(
-            appBar: AppBar(
-              title: Text("Chat"),
-              centerTitle: true,
-            ),
-            drawer: XLODrawer(),
-          ),
+          ChatScreen(),
           FavoritesScreen(
             hideDrawer: false,
           ),
