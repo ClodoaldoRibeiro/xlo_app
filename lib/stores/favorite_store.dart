@@ -15,22 +15,15 @@ abstract class _FavoriteStore with Store {
   @action
   Future<void> toggleFavorite(Ad ad) async {
     try {
-      favoriteList.add(ad);
-      await FavoriteRepository().save(ad: ad, user: userManagerStore.userModel);
+      if (favoriteList.any((a) => a.id == ad.id)) {
+        favoriteList.removeWhere((a) => a.id == ad.id);
+        await FavoriteRepository().delete(ad: ad, user: userManagerStore.userModel);
+      } else {
+        favoriteList.add(ad);
+        await FavoriteRepository().save(ad: ad, user: userManagerStore.userModel);
+      }
     } catch (e) {
       print(e);
     }
-
-    // try {
-    //   if (favoriteList.any((a) => a.id == ad.id)) {
-    //     favoriteList.removeWhere((a) => a.id == ad.id);
-    //     await FavoriteRepository().delete(ad: ad, user: userManagerStore.user);
-    //   } else {
-    //     favoriteList.add(ad);
-    //     await FavoriteRepository().save(ad: ad, user: userManagerStore.user);
-    //   }
-    // } catch (e) {
-    //   print(e);
-    // }
   }
 }

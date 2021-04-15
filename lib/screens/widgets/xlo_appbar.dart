@@ -3,9 +3,11 @@ import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:get_it/get_it.dart';
 import 'package:xlo_app/screens/home/components/search_dialog.dart';
 import 'package:xlo_app/stores/home_store.dart';
+import 'package:xlo_app/stores/page_store.dart';
 
 class XLOAppBar extends StatelessWidget {
   final HomeStore homeStore = GetIt.I<HomeStore>();
+  final PageStore _pageStore = GetIt.I<PageStore>();
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,9 @@ class XLOAppBar extends StatelessWidget {
           },
         ),
         IconButton(
-          onPressed: () {},
+          onPressed: () {
+            _pageStore.setPage(3);
+          },
           icon: Icon(Icons.favorite_border_outlined),
         ),
       ],

@@ -16,7 +16,6 @@ abstract class _HomeStore with Store {
         final newAds = await AdRepository().getHomeAdList(
             filter: filter, search: search, category: category, page: page);
         addNewAds(newAds);
-        print("newAds.length ${newAds.length}");
         setError(null);
         setLoading(false);
       } catch (e) {
