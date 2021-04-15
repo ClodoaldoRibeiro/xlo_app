@@ -6,7 +6,6 @@ import 'package:xlo_app/screens/chat/chat_screen.dart';
 import 'package:xlo_app/screens/favorites/favorites_screen.dart';
 import 'package:xlo_app/screens/home/home_screen.dart';
 import 'package:xlo_app/screens/inseriranucio/inserir_anucio_screen.dart';
-import 'package:xlo_app/screens/widgets/xlo_drawer.dart';
 import 'package:xlo_app/stores/page_store.dart';
 
 class BaseScreen extends StatefulWidget {

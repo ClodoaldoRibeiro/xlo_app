@@ -76,9 +76,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       controller: scrollController,
                       itemCount: homeStore.itemCount,
                       itemBuilder: (_, index) {
-                        print("index: ${index}");
-                        print(
-                            " homeStore.adList.length: ${homeStore.adList.length}");
                         if ((index) < homeStore.adList.length)
                           return AdTile(homeStore.adList[index]);
 

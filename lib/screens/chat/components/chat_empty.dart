@@ -12,11 +12,11 @@ class ChatEmpty extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Icon(
-            Icons.chat_rounded  ,
+            Icons.chat  ,
             color: AppColors.COR_PALLETA[400],
             size: 150,
           ),
-          const SizedBox(height: 30,),
+          const SizedBox(height: 50,),
           Text(
             'Você não tem chats ativos',
             textAlign: TextAlign.center,
