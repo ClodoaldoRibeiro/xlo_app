@@ -8,7 +8,7 @@
  
  ## Tecnologias
  As tecnologias usadas até o momento são:
- * [Flutter SDK ](https://flutter.dev/docs/get-started/install/windows) - SDK Flutter para rodar as aplicações.
+ * [Flutter SDK ](https://flutter.dev/docs/get-started/install/windows) - SDK Flutter para desenvolver a aplicação.
  * [Android Studio 4.1](https://developer.android.com/studio) - Ambiente de desenvolvimento.
  * [Flutter MobX](https://pub.dev/packages/flutter_mobx) - Gerenciador de Estados.
  * [Parser Server](https://parseplatform.org/) - Ambiente de gerenciamento de dados.
