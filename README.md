@@ -15,9 +15,30 @@
  
 
 
+ ## Fotos
+<br /> 
+<br /> 
+<br />
+
+<p align="center">
+<img src="https://github.com/ClodoaldoRibeiro/xlo_app/blob/main/telas/home.jpeg" alt="ClodoaldoRibeiro"/>
+<h5 align="center">Tela 1: Home do aplicativoProduto </h5>
+</p>
+
+
+<br /> 
+<br /> 
+<br />
+<br /> 
+<br /> 
+<br />
+
+* [Todas as Imagens](https://github.com/ClodoaldoRibeiro/xlo_app/tree/main/telas)
+
+
  ## License
  Copyright (c) Clodoaldo. Todos os direitos reservados.
- Licenciado sob a licença [MIT](https://github.com/ClodoaldoRibeiro/chat_app/blob/master/LICENSE.md)
+ Licenciado sob a licença [MIT](https://github.com/ClodoaldoRibeiro/xlo_app/blob/main/LICENSE)
  
  
  <!-- MARKDOWN LINKS & IMAGES -->
