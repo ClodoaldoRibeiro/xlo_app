@@ -22,7 +22,7 @@
 
 <p align="center">
 <img src="https://github.com/ClodoaldoRibeiro/xlo_app/blob/main/telas/home.jpeg" alt="ClodoaldoRibeiro"/>
-<h5 align="center">Tela 1: Home do aplicativoProduto </h5>
+<h5 align="center">Tela 1: Home do aplicativo</h5>
 </p>
 
 
